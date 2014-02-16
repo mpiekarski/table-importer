@@ -8,7 +8,7 @@ import net.piekarski.exception.FileFormatNotSupportedException;
 import net.piekarski.guice.MainModule;
 import org.apache.commons.cli.ParseException;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Main {
     public static final String APPLICATION_NAME = "table-importer";
@@ -30,7 +30,7 @@ public class Main {
     }
 
     private void tryToStart(String[] args) throws ParseException, CommandLineNotParsedException,
-            FileNotFoundException, FileFormatNotSupportedException {
+            IOException, FileFormatNotSupportedException {
         cmd.parse(args);
 
         if (cmd.hasHelpOption()) {

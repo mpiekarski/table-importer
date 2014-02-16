@@ -6,8 +6,8 @@ import csv.impl.CSVReader;
 import csv.impl.ExcelReader;
 import net.piekarski.exception.CommandLineNotParsedException;
 import net.piekarski.exception.FileFormatNotSupportedException;
-import net.piekarski.io.LiquibaseWriter;
-import net.piekarski.io.SqlWriter;
+import net.piekarski.io.LiquibaseInsertWriter;
+import net.piekarski.io.SqlInsertWriter;
 import net.piekarski.io.TableWriter;
 import net.piekarski.type.OptionType;
 import org.apache.commons.cli.CommandLine;
@@ -18,12 +18,14 @@ import org.apache.commons.cli.ParseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static net.piekarski.type.OptionType.HELP;
 import static net.piekarski.type.OptionType.INPUT;
 import static net.piekarski.type.OptionType.LIQUIBASE;
 import static net.piekarski.type.OptionType.OUTPUT;
 import static net.piekarski.type.OptionType.SEPARATOR;
+import static net.piekarski.type.OptionType.TABLE;
 import static net.piekarski.type.OptionType.values;
 
 public class CommandLineService {
@@ -51,7 +53,7 @@ public class CommandLineService {
         return cmd.hasOption(HELP.getOpt());
     }
 
-    public Converter getConverter() throws CommandLineNotParsedException, FileNotFoundException, FileFormatNotSupportedException {
+    public Converter getConverter() throws CommandLineNotParsedException, IOException, FileFormatNotSupportedException {
         if (cmd == null) {
             throw new CommandLineNotParsedException();
         }
@@ -66,7 +68,7 @@ public class CommandLineService {
         return options;
     }
 
-    private Converter createConverter() throws FileNotFoundException, FileFormatNotSupportedException {
+    private Converter createConverter() throws IOException, FileFormatNotSupportedException {
         File inputFile = new File(cmd.getOptionValue(INPUT.getOpt()));
         File outputFile = new File(cmd.getOptionValue(OUTPUT.getOpt()));
         TableReader tableReader = getTableReader(inputFile);
@@ -97,10 +99,11 @@ public class CommandLineService {
         return new ExcelReader(file);
     }
 
-    private TableWriter getTableWriter(File file) {
+    private TableWriter getTableWriter(File file) throws IOException {
+        String tableName = cmd.getOptionValue(TABLE.getOpt());
         if (cmd.hasOption(LIQUIBASE.getOpt())) {
-            return new LiquibaseWriter(file);
+            return new LiquibaseInsertWriter(file, tableName);
         }
-        return new SqlWriter(file);
+        return new SqlInsertWriter(file, tableName);
     }
 }

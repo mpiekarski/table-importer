@@ -6,6 +6,7 @@ public enum OptionType {
     HELP("h", "help", false, "print help", false),
     INPUT("i", "input", true, "input file", true),
     OUTPUT("o", "output", true, "output file", true),
+    TABLE("t", "table", true, "input file", true),
     INSERT("I", "insert", false, "insert action", false),
     UPDATE("U", "update", false, "update action", false),
     LIQUIBASE("l", "liquibase", false, "generate Liquibase changesets", false),

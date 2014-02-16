@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -36,7 +36,7 @@ public class MainTest {
     }
 
     @Test
-    public void shouldRunConverter() throws ParseException, FileNotFoundException, FileFormatNotSupportedException, CommandLineNotParsedException {
+    public void shouldRunConverter() throws ParseException, IOException, FileFormatNotSupportedException, CommandLineNotParsedException {
         // given
         String[] args = null;
         Converter converter = mock(Converter.class);

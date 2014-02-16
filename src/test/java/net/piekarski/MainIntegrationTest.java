@@ -7,8 +7,9 @@ public class MainIntegrationTest {
     public void shouldMain() {
         // given
         String[] args = new String[] {
-                "-i", "input.csv",
-                "-o", "output.sql"
+                "-i", "src/test/resources/input.csv",
+                "-o", "src/test/resources/output.sql",
+                "-t", "person"
         };
         // when
         Main.main(args);

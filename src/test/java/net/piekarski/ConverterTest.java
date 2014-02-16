@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.IOException;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ConverterTest {
     @InjectMocks
@@ -20,7 +22,7 @@ public class ConverterTest {
     private TableWriter writer;
 
     @Test
-    public void shouldRun() {
+    public void shouldRun() throws IOException {
         // given
         // when
         converter.run();
