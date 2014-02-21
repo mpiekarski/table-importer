@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class SqlInsertWriter extends AbstractTableWriter {
-    public static final String SQL = "INSERT INTO %s (%s) VALUES (%s)\n\n";
+    private static final String SQL = "INSERT INTO %s (%s) VALUES (%s);\n\n";
 
     public SqlInsertWriter(File file, String tableName) throws IOException {
         super(file, tableName);

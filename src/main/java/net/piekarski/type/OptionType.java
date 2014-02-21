@@ -7,8 +7,8 @@ public enum OptionType {
     INPUT("i", "input", true, "input file", true),
     OUTPUT("o", "output", true, "output file", true),
     TABLE("t", "table", true, "input file", true),
-    INSERT("I", "insert", false, "insert action", false),
-    UPDATE("U", "update", false, "update action", false),
+    INSERT("I", "insert", false, "insert", false),
+    UPDATE("U", "update", true, "update with the key", false),
     LIQUIBASE("l", "liquibase", false, "generate Liquibase changesets", false),
     SQL("s", "sql", false, "generate sql", false),
     SEPARATOR("S", "separator", true, "csv separator", false);
