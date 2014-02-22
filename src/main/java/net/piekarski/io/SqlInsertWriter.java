@@ -14,8 +14,16 @@ public class SqlInsertWriter extends AbstractTableWriter {
     }
 
     @Override
+    public void writeHeader() throws IOException {
+    }
+
+    @Override
     public void write(List<String> cellList) throws IOException {
         writer.write(getFormattedSql(cellList));
+    }
+
+    @Override
+    public void writeFooter() throws IOException {
     }
 
     private String getFormattedSql(List<String> cellList) {

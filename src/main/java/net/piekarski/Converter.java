@@ -19,9 +19,13 @@ public class Converter {
             writer.setColumnNames(reader.next());
         }
 
+        writer.writeHeader();
+
         while (reader.hasNext()) {
             writer.write(reader.next());
         }
+
+        writer.writeFooter();
 
         writer.flush();
         writer.close();

@@ -91,10 +91,6 @@ public class CommandLineService {
         return new Converter(tableReader, tableWriter);
     }
 
-    private TableWriter getTableWriter(File outputFile) throws IOException {
-        return new ToStringAdapter(getStringTableWriter(outputFile));
-    }
-
     private TableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {
         if (file.getName().endsWith(".csv")) {
             return getCsvReader(file);
@@ -115,6 +111,10 @@ public class CommandLineService {
 
     private ExcelReader getExcelReader(File file) throws FileNotFoundException {
         return new ExcelReader(file);
+    }
+
+    private TableWriter getTableWriter(File outputFile) throws IOException {
+        return new ToStringAdapter(getStringTableWriter(outputFile));
     }
 
     private StringTableWriter getStringTableWriter(File file) throws IOException {

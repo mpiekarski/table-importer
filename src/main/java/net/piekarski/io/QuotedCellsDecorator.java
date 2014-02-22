@@ -20,6 +20,11 @@ public class QuotedCellsDecorator implements StringTableWriter {
     }
 
     @Override
+    public void writeHeader() throws IOException {
+        writer.writeHeader();
+    }
+
+    @Override
     public void write(List<String> cellList) throws IOException {
         ImmutableList<String> stringCellList = FluentIterable
                 .from(cellList)
@@ -32,6 +37,11 @@ public class QuotedCellsDecorator implements StringTableWriter {
                 .toList();
 
         writer.write(stringCellList);
+    }
+
+    @Override
+    public void writeFooter() throws IOException {
+        writer.writeFooter();
     }
 
     @Override

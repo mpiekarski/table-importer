@@ -28,6 +28,11 @@ public class ToStringAdapter implements TableWriter {
     }
 
     @Override
+    public void writeHeader() throws IOException {
+        writer.writeHeader();
+    }
+
+    @Override
     public void write(Object[] cells) throws IOException {
         List<Object> cellList = Arrays.asList(cells);
 
@@ -37,6 +42,11 @@ public class ToStringAdapter implements TableWriter {
                 .toList();
 
         writer.write(stringCellList);
+    }
+
+    @Override
+    public void writeFooter() throws IOException {
+        writer.writeFooter();
     }
 
     @Override

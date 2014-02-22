@@ -13,7 +13,17 @@ public class LiquibaseUpdateWriter extends AbstractTableWriter {
     }
 
     @Override
+    public void writeHeader() throws IOException {
+
+    }
+
+    @Override
     public void write(List<String> cellList) {
+
+    }
+
+    @Override
+    public void writeFooter() throws IOException {
 
     }
 }
