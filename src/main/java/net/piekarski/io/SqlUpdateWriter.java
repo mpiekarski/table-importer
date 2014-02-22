@@ -1,13 +1,11 @@
 package net.piekarski.io;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Maps;
+import net.piekarski.util.TableUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class SqlUpdateWriter extends AbstractTableWriter {
     private static final String SQL = "UPDATE %s SET %s WHERE %s;\n\n";
@@ -41,22 +39,6 @@ public class SqlUpdateWriter extends AbstractTableWriter {
         return Joiner
                 .on(" AND ")
                 .withKeyValueSeparator("=")
-                .join(getMapFromLists(columnNames, cellList));
-    }
-
-    public Map getMapFromLists(List<String> list1, List<String> list2) {
-        Map map = Maps.newHashMap();
-
-        Iterator<String> iterator1 = list1.iterator();
-        Iterator<String> iterator2 = list2.iterator();
-
-        while (iterator1.hasNext()) {
-            String nextKey = iterator1.next();
-            String nextValueOrBlank = iterator2.hasNext() ? iterator2.next() : "";
-
-            map.put(nextKey, nextValueOrBlank);
-        }
-
-        return map;
+                .join(TableUtil.getMapFromLists(columnNames, cellList));
     }
 }
