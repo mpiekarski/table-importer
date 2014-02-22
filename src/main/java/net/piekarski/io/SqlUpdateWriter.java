@@ -1,14 +1,13 @@
 package net.piekarski.io;
 
 import com.google.common.base.Function;
-import com.google.common.base.Functions;
 import com.google.common.base.Joiner;
 import com.google.common.collect.FluentIterable;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class SqlUpdateWriter extends AbstractTableWriter {
     private static final String SQL = "UPDATE %s SET %s WHERE %s;\n\n";
@@ -20,26 +19,19 @@ public class SqlUpdateWriter extends AbstractTableWriter {
     }
 
     @Override
-    public void write(Object[] columns) throws IOException {
+    public void write(List<String> columns) throws IOException {
         writer.write(String.format(SQL, tableName, getUpdateString(columns), getKeyString(columns)));
     }
 
-    private String getKeyString(Object[] columns) {
-        return key + "=" + columns[getKeyIndex(key)];
+    private String getKeyString(List<String> columns) {
+        int indexOfKey = columnNames.indexOf(key);
+        return key + "=" + columns.get(indexOfKey);
     }
 
-    private int getKeyIndex(String key) {
-        return FluentIterable.from(Arrays.asList(headers))
-                .transform(Functions.toStringFunction())
-                .toList()
-                .indexOf(key);
-    }
+    public String getUpdateString(List<String> columns) {
+        final Iterator<String> values = columns.iterator();
 
-    public String getUpdateString(Object[] columns) {
-        final Iterator<String> values = getValues(columns).iterator();
-
-        return Joiner.on(" AND ").join(FluentIterable.from(Arrays.asList(headers))
-                .transform(Functions.toStringFunction())
+        return Joiner.on(" AND ").join(FluentIterable.from(columnNames)
                 .transform(new Function<String, String>() {
                     @Override
                     public String apply(String input) {
@@ -48,14 +40,4 @@ public class SqlUpdateWriter extends AbstractTableWriter {
                 }));
     }
 
-    private FluentIterable<String> getValues(Object[] columns) {
-        return FluentIterable.from(Arrays.asList(columns))
-                .transform(Functions.toStringFunction())
-                .transform(new Function<String, String>() {
-                    @Override
-                    public String apply(String input) {
-                        return input.matches("^[0-9]+$") ? input : "\"" + input + "\"";
-                    }
-                });
-    }
 }

@@ -9,7 +9,9 @@ import net.piekarski.exception.FileFormatNotSupportedException;
 import net.piekarski.io.LiquibaseInsertWriter;
 import net.piekarski.io.SqlInsertWriter;
 import net.piekarski.io.SqlUpdateWriter;
+import net.piekarski.io.StringTableWriter;
 import net.piekarski.io.TableWriter;
+import net.piekarski.io.TableWriterAdapter;
 import net.piekarski.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -104,12 +106,12 @@ public class CommandLineService {
     private TableWriter getTableWriter(File file) throws IOException {
         String tableName = cmd.getOptionValue(TABLE.getOpt());
         if (cmd.hasOption(LIQUIBASE.getOpt())) {
-            return new LiquibaseInsertWriter(file, tableName);
+            return new TableWriterAdapter(new LiquibaseInsertWriter(file, tableName));
         }
-        return getSqlWriter(file, tableName);
+        return new TableWriterAdapter(getSqlWriter(file, tableName));
     }
 
-    private TableWriter getSqlWriter(File file, String tableName) throws IOException {
+    private StringTableWriter getSqlWriter(File file, String tableName) throws IOException {
         if (cmd.hasOption(UPDATE.getOpt())) {
             return new SqlUpdateWriter(file, tableName, cmd.getOptionValue(UPDATE.getOpt()));
         }

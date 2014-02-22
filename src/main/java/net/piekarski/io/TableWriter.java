@@ -3,7 +3,7 @@ package net.piekarski.io;
 import java.io.IOException;
 
 public interface TableWriter {
-    void setHeaders(Object[] headers);
+    void setColumnNames(Object[] columnNames);
 
     void write(Object[] next) throws IOException;
 

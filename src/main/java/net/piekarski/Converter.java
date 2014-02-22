@@ -16,7 +16,7 @@ public class Converter {
 
     public void run() throws IOException {
         if (reader.hasNext()) {
-            writer.setHeaders(reader.next());
+            writer.setColumnNames(reader.next());
         }
 
         while (reader.hasNext()) {

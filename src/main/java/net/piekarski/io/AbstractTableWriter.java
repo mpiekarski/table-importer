@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.file.FileAlreadyExistsException;
+import java.util.List;
 
-public abstract class AbstractTableWriter implements TableWriter {
+public abstract class AbstractTableWriter implements StringTableWriter {
     protected Writer writer;
 
-    protected Object[] headers;
+    protected List<String> columnNames;
 
     protected String tableName;
 
@@ -22,12 +23,13 @@ public abstract class AbstractTableWriter implements TableWriter {
         this.tableName = tableName;
     }
 
-    public void setHeaders(Object[] headers) {
-        this.headers = headers;
+    @Override
+    public void setColumnNames(List<String> columnNames) {
+        this.columnNames = columnNames;
     }
 
     @Override
-    public abstract void write(Object[] next) throws IOException;
+    public abstract void write(List<String> next) throws IOException;
 
     @Override
     public void flush() throws IOException {
