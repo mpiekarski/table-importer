@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class AbstractTableWriter implements StringTableWriter {
     protected Writer writer;
 
-    protected List<String> columnNames;
+    protected List<String> columnNameList;
 
     protected String tableName;
 
@@ -24,8 +24,8 @@ public abstract class AbstractTableWriter implements StringTableWriter {
     }
 
     @Override
-    public void setColumnNames(List<String> columnNames) {
-        this.columnNames = columnNames;
+    public void setColumnNameList(List<String> columnNameList) {
+        this.columnNameList = columnNameList;
     }
 
     @Override

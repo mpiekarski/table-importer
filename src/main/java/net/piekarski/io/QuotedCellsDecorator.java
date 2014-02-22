@@ -15,8 +15,8 @@ public class QuotedCellsDecorator implements StringTableWriter {
     }
 
     @Override
-    public void setColumnNames(List<String> columnNames) {
-        writer.setColumnNames(columnNames);
+    public void setColumnNameList(List<String> columnNameList) {
+        writer.setColumnNameList(columnNameList);
     }
 
     @Override

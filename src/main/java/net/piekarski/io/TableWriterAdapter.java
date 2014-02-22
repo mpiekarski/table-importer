@@ -24,7 +24,7 @@ public class TableWriterAdapter implements TableWriter {
                 .transform(Functions.toStringFunction())
                 .toList();
 
-        writer.setColumnNames(columnNameList);
+        writer.setColumnNameList(columnNameList);
     }
 
     @Override

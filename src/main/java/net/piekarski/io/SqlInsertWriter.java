@@ -23,7 +23,7 @@ public class SqlInsertWriter extends AbstractTableWriter {
     }
 
     private String getColumnNames() {
-        return Joiner.on(',').join(columnNames);
+        return Joiner.on(',').join(columnNameList);
     }
 
     private String getValues(List<String> columns) {

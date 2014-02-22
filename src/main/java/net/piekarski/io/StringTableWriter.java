@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface StringTableWriter {
-    void setColumnNames(List<String> columnNames);
+    void setColumnNameList(List<String> columnNameList);
 
     void write(List<String> cellList) throws IOException;
 

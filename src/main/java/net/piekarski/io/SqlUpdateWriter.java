@@ -32,13 +32,13 @@ public class SqlUpdateWriter extends AbstractTableWriter {
     }
 
     private String getValueForKey(List<String> cellList) {
-        return cellList.get(columnNames.indexOf(key));
+        return cellList.get(columnNameList.indexOf(key));
     }
 
     public String getUpdateString(List<String> cellList) {
         return Joiner
                 .on(" AND ")
                 .withKeyValueSeparator("=")
-                .join(TableUtil.getMapFromLists(columnNames, cellList));
+                .join(TableUtil.getMapFromLists(columnNameList, cellList));
     }
 }
