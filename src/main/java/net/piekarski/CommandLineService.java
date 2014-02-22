@@ -81,6 +81,10 @@ public class CommandLineService {
         return new Converter(tableReader, tableWriter);
     }
 
+    private TableWriterAdapter getTableWriter(File outputFile) throws IOException {
+        return new TableWriterAdapter(getStringTableWriter(outputFile));
+    }
+
     private TableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {
         if (file.getName().endsWith(".csv")) {
             return getCsvReader(file);
@@ -103,12 +107,12 @@ public class CommandLineService {
         return new ExcelReader(file);
     }
 
-    private TableWriter getTableWriter(File file) throws IOException {
+    private StringTableWriter getStringTableWriter(File file) throws IOException {
         String tableName = cmd.getOptionValue(TABLE.getOpt());
         if (cmd.hasOption(LIQUIBASE.getOpt())) {
-            return new TableWriterAdapter(new LiquibaseInsertWriter(file, tableName));
+            return new LiquibaseInsertWriter(file, tableName);
         }
-        return new TableWriterAdapter(getSqlWriter(file, tableName));
+        return getSqlWriter(file, tableName);
     }
 
     private StringTableWriter getSqlWriter(File file, String tableName) throws IOException {

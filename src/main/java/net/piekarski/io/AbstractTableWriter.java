@@ -29,7 +29,7 @@ public abstract class AbstractTableWriter implements StringTableWriter {
     }
 
     @Override
-    public abstract void write(List<String> next) throws IOException;
+    public abstract void write(List<String> cellList) throws IOException;
 
     @Override
     public void flush() throws IOException {

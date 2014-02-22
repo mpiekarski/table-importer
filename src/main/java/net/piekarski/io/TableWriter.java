@@ -5,7 +5,7 @@ import java.io.IOException;
 public interface TableWriter {
     void setColumnNames(Object[] columnNames);
 
-    void write(Object[] next) throws IOException;
+    void write(Object[] cells) throws IOException;
 
     void flush() throws IOException;
 

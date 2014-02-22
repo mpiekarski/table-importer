@@ -29,11 +29,11 @@ public class TableWriterAdapter implements TableWriter {
     }
 
     @Override
-    public void write(Object[] columns) throws IOException {
-        List<Object> columnList = Arrays.asList(columns);
+    public void write(Object[] cells) throws IOException {
+        List<Object> cellList = Arrays.asList(cells);
 
-        ImmutableList<String> stringColumnList = FluentIterable
-                .from(columnList)
+        ImmutableList<String> stringCellList = FluentIterable
+                .from(cellList)
                 .transform(Functions.toStringFunction())
                 .transform(new Function<String, String>() {
                     @Override
@@ -43,7 +43,7 @@ public class TableWriterAdapter implements TableWriter {
                 })
                 .toList();
 
-        writer.write(stringColumnList);
+        writer.write(stringCellList);
     }
 
     @Override

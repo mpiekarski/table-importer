@@ -10,7 +10,7 @@ public class LiquibaseInsertWriter extends AbstractTableWriter {
     }
 
     @Override
-    public void write(List<String> next) {
+    public void write(List<String> cellList) {
 
     }
 }

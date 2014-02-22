@@ -19,17 +19,17 @@ public class SqlUpdateWriter extends AbstractTableWriter {
     }
 
     @Override
-    public void write(List<String> columns) throws IOException {
-        writer.write(String.format(SQL, tableName, getUpdateString(columns), getKeyString(columns)));
+    public void write(List<String> cellList) throws IOException {
+        writer.write(String.format(SQL, tableName, getUpdateString(cellList), getKeyString(cellList)));
     }
 
-    private String getKeyString(List<String> columns) {
+    private String getKeyString(List<String> cellList) {
         int indexOfKey = columnNames.indexOf(key);
-        return key + "=" + columns.get(indexOfKey);
+        return key + "=" + cellList.get(indexOfKey);
     }
 
-    public String getUpdateString(List<String> columns) {
-        final Iterator<String> values = columns.iterator();
+    public String getUpdateString(List<String> cellList) {
+        final Iterator<String> values = cellList.iterator();
 
         return Joiner.on(" AND ").join(FluentIterable.from(columnNames)
                 .transform(new Function<String, String>() {

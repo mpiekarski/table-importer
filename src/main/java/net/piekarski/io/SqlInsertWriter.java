@@ -14,11 +14,11 @@ public class SqlInsertWriter extends AbstractTableWriter {
     }
 
     @Override
-    public void write(List<String> columns) throws IOException {
-        writer.write(String.format(SQL, tableName, getHeaders(), getValues(columns)));
+    public void write(List<String> cellList) throws IOException {
+        writer.write(String.format(SQL, tableName, getColumnNames(), getValues(cellList)));
     }
 
-    private String getHeaders() {
+    private String getColumnNames() {
         return Joiner.on(',').join(columnNames);
     }
 
