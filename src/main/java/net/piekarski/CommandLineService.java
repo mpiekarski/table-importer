@@ -12,6 +12,7 @@ import net.piekarski.io.SqlUpdateWriter;
 import net.piekarski.io.StringTableWriter;
 import net.piekarski.io.TableWriter;
 import net.piekarski.io.TableWriterAdapter;
+import net.piekarski.io.TableWriterDecorator;
 import net.piekarski.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -112,7 +113,7 @@ public class CommandLineService {
         if (cmd.hasOption(LIQUIBASE.getOpt())) {
             return new LiquibaseInsertWriter(file, tableName);
         }
-        return getSqlWriter(file, tableName);
+        return new TableWriterDecorator(getSqlWriter(file, tableName));
     }
 
     private StringTableWriter getSqlWriter(File file, String tableName) throws IOException {

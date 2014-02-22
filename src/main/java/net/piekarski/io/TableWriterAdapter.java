@@ -1,6 +1,5 @@
 package net.piekarski.io;
 
-import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
@@ -20,12 +19,12 @@ public class TableWriterAdapter implements TableWriter {
     public void setColumnNames(Object[] columnNames) {
         List<Object> headerList = Arrays.asList(columnNames);
 
-        ImmutableList<String> stringHeaderList = FluentIterable
+        ImmutableList<String> columnNameList = FluentIterable
                 .from(headerList)
                 .transform(Functions.toStringFunction())
                 .toList();
 
-        writer.setColumnNames(stringHeaderList);
+        writer.setColumnNames(columnNameList);
     }
 
     @Override
@@ -35,12 +34,6 @@ public class TableWriterAdapter implements TableWriter {
         ImmutableList<String> stringCellList = FluentIterable
                 .from(cellList)
                 .transform(Functions.toStringFunction())
-                .transform(new Function<String, String>() {
-                    @Override
-                    public String apply(String input) {
-                        return input.matches("^[0-9]+$") ? input : "\"" + input + "\"";
-                    }
-                })
                 .toList();
 
         writer.write(stringCellList);
