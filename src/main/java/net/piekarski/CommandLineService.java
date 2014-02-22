@@ -7,12 +7,13 @@ import csv.impl.ExcelReader;
 import net.piekarski.exception.CommandLineNotParsedException;
 import net.piekarski.exception.FileFormatNotSupportedException;
 import net.piekarski.io.LiquibaseInsertWriter;
+import net.piekarski.io.LiquibaseUpdateWriter;
+import net.piekarski.io.QuotedCellsDecorator;
 import net.piekarski.io.SqlInsertWriter;
 import net.piekarski.io.SqlUpdateWriter;
 import net.piekarski.io.StringTableWriter;
 import net.piekarski.io.TableWriter;
 import net.piekarski.io.TableWriterAdapter;
-import net.piekarski.io.TableWriterDecorator;
 import net.piekarski.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -55,7 +56,7 @@ public class CommandLineService {
     }
 
     public boolean hasHelpOption() {
-        return cmd.hasOption(HELP.getOpt());
+        return hasOption(HELP);
     }
 
     public Converter getConverter() throws CommandLineNotParsedException, IOException, FileFormatNotSupportedException {
@@ -73,9 +74,17 @@ public class CommandLineService {
         return options;
     }
 
+    private boolean hasOption(OptionType opt) {
+        return cmd.hasOption(opt.getOpt());
+    }
+
+    private String getOptionValue(OptionType opt) {
+        return cmd.getOptionValue(opt.getOpt());
+    }
+
     private Converter createConverter() throws IOException, FileFormatNotSupportedException {
-        File inputFile = new File(cmd.getOptionValue(INPUT.getOpt()));
-        File outputFile = new File(cmd.getOptionValue(OUTPUT.getOpt()));
+        File inputFile = new File(getOptionValue(INPUT));
+        File outputFile = new File(getOptionValue(OUTPUT));
         TableReader tableReader = getTableReader(inputFile);
         TableWriter tableWriter = getTableWriter(outputFile);
 
@@ -97,8 +106,8 @@ public class CommandLineService {
 
     private CSVReader getCsvReader(File file) throws FileNotFoundException {
         CSVReader reader = new CSVReader(file);
-        if (cmd.hasOption(SEPARATOR.getOpt())) {
-            String separator = cmd.getOptionValue(SEPARATOR.getOpt());
+        if (hasOption(SEPARATOR)) {
+            String separator = getOptionValue(SEPARATOR);
             reader.setColumnSeparator(separator.charAt(0));
         }
         return reader;
@@ -109,17 +118,24 @@ public class CommandLineService {
     }
 
     private StringTableWriter getStringTableWriter(File file) throws IOException {
-        String tableName = cmd.getOptionValue(TABLE.getOpt());
-        if (cmd.hasOption(LIQUIBASE.getOpt())) {
-            return new LiquibaseInsertWriter(file, tableName);
-        }
-        return new TableWriterDecorator(getSqlWriter(file, tableName));
+        return hasOption(LIQUIBASE) ?
+                getLiquibaseTableWriter(file) :
+                getSqlTableWriter(file);
     }
 
-    private StringTableWriter getSqlWriter(File file, String tableName) throws IOException {
-        if (cmd.hasOption(UPDATE.getOpt())) {
-            return new SqlUpdateWriter(file, tableName, cmd.getOptionValue(UPDATE.getOpt()));
-        }
-        return new SqlInsertWriter(file, tableName);
+    private StringTableWriter getLiquibaseTableWriter(File file) throws IOException {
+        return hasOption(UPDATE) ?
+                new LiquibaseUpdateWriter(file, getOptionValue(TABLE), getOptionValue(UPDATE)) :
+                new LiquibaseInsertWriter(file, getOptionValue(TABLE));
+    }
+
+    private StringTableWriter getSqlTableWriter(File file) throws IOException {
+        return new QuotedCellsDecorator(getNoQuotedCellsSqlWriter(file));
+    }
+
+    private StringTableWriter getNoQuotedCellsSqlWriter(File file) throws IOException {
+        return hasOption(UPDATE) ?
+                new SqlUpdateWriter(file, getOptionValue(TABLE), getOptionValue(UPDATE)) :
+                new SqlInsertWriter(file, getOptionValue(TABLE));
     }
 }

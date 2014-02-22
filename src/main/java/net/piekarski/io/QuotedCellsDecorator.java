@@ -7,10 +7,10 @@ import com.google.common.collect.ImmutableList;
 import java.io.IOException;
 import java.util.List;
 
-public class TableWriterDecorator implements StringTableWriter {
+public class QuotedCellsDecorator implements StringTableWriter {
     StringTableWriter writer;
 
-    public TableWriterDecorator(StringTableWriter writer) {
+    public QuotedCellsDecorator(StringTableWriter writer) {
         this.writer = writer;
     }
 

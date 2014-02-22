@@ -15,7 +15,11 @@ public class SqlInsertWriter extends AbstractTableWriter {
 
     @Override
     public void write(List<String> cellList) throws IOException {
-        writer.write(String.format(SQL, tableName, getColumnNames(), getValues(cellList)));
+        writer.write(getFormattedSql(cellList));
+    }
+
+    private String getFormattedSql(List<String> cellList) {
+        return String.format(SQL, tableName, getColumnNames(), getValues(cellList));
     }
 
     private String getColumnNames() {
