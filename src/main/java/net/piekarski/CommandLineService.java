@@ -13,7 +13,7 @@ import net.piekarski.io.SqlInsertWriter;
 import net.piekarski.io.SqlUpdateWriter;
 import net.piekarski.io.StringTableWriter;
 import net.piekarski.io.TableWriter;
-import net.piekarski.io.TableWriterAdapter;
+import net.piekarski.io.ToStringAdapter;
 import net.piekarski.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -91,8 +91,8 @@ public class CommandLineService {
         return new Converter(tableReader, tableWriter);
     }
 
-    private TableWriterAdapter getTableWriter(File outputFile) throws IOException {
-        return new TableWriterAdapter(getStringTableWriter(outputFile));
+    private TableWriter getTableWriter(File outputFile) throws IOException {
+        return new ToStringAdapter(getStringTableWriter(outputFile));
     }
 
     private TableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {

@@ -22,10 +22,10 @@ public class SqlUpdateWriter extends AbstractTableWriter {
     }
 
     private String getFormattedSql(List<String> cellList) {
-        return String.format(SQL, tableName, getUpdateString(cellList), getKeyString(cellList));
+        return String.format(SQL, tableName, getSetStatement(cellList), getWhereStatement(cellList));
     }
 
-    private String getKeyString(List<String> cellList) {
+    private String getWhereStatement(List<String> cellList) {
         return Joiner
                 .on("=")
                 .join(key, getValueForKey(cellList));
@@ -35,7 +35,7 @@ public class SqlUpdateWriter extends AbstractTableWriter {
         return cellList.get(columnNameList.indexOf(key));
     }
 
-    public String getUpdateString(List<String> cellList) {
+    public String getSetStatement(List<String> cellList) {
         return Joiner
                 .on(" AND ")
                 .withKeyValueSeparator("=")
