@@ -4,6 +4,7 @@ import com.google.common.base.Functions;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -28,12 +29,12 @@ public class ToStringAdapter implements TableWriter {
     }
 
     @Override
-    public void writeHeader() throws IOException {
+    public void writeHeader() throws IOException, XMLStreamException {
         writer.writeHeader();
     }
 
     @Override
-    public void write(Object[] cells) throws IOException {
+    public void write(Object[] cells) throws IOException, XMLStreamException {
         List<Object> cellList = Arrays.asList(cells);
 
         ImmutableList<String> stringCellList = FluentIterable
@@ -45,17 +46,17 @@ public class ToStringAdapter implements TableWriter {
     }
 
     @Override
-    public void writeFooter() throws IOException {
+    public void writeFooter() throws IOException, XMLStreamException {
         writer.writeFooter();
     }
 
     @Override
-    public void flush() throws IOException {
+    public void flush() throws IOException, XMLStreamException {
         writer.flush();
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() throws IOException, XMLStreamException {
         writer.close();
     }
 }

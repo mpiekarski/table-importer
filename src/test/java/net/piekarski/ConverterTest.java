@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,7 +23,7 @@ public class ConverterTest {
     private TableWriter writer;
 
     @Test
-    public void shouldRun() throws IOException {
+    public void shouldRun() throws IOException, XMLStreamException {
         // given
         // when
         converter.run();

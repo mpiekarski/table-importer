@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,12 +21,12 @@ public class QuotedCellsDecorator implements StringTableWriter {
     }
 
     @Override
-    public void writeHeader() throws IOException {
+    public void writeHeader() throws IOException, XMLStreamException {
         writer.writeHeader();
     }
 
     @Override
-    public void write(List<String> cellList) throws IOException {
+    public void write(List<String> cellList) throws IOException, XMLStreamException {
         ImmutableList<String> stringCellList = FluentIterable
                 .from(cellList)
                 .transform(new Function<String, String>() {
@@ -40,17 +41,17 @@ public class QuotedCellsDecorator implements StringTableWriter {
     }
 
     @Override
-    public void writeFooter() throws IOException {
+    public void writeFooter() throws IOException, XMLStreamException {
         writer.writeFooter();
     }
 
     @Override
-    public void flush() throws IOException {
+    public void flush() throws IOException, XMLStreamException {
         writer.flush();
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() throws IOException, XMLStreamException {
         writer.close();
     }
 }

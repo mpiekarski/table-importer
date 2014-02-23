@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
@@ -36,7 +37,8 @@ public class MainTest {
     }
 
     @Test
-    public void shouldRunConverter() throws ParseException, IOException, FileFormatNotSupportedException, CommandLineNotParsedException {
+    public void shouldRunConverter() throws ParseException, IOException, FileFormatNotSupportedException,
+            CommandLineNotParsedException, XMLStreamException {
         // given
         String[] args = null;
         Converter converter = mock(Converter.class);

@@ -3,6 +3,7 @@ package net.piekarski;
 import csv.TableReader;
 import net.piekarski.io.TableWriter;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 public class Converter {
@@ -14,7 +15,7 @@ public class Converter {
         this.writer = writer;
     }
 
-    public void run() throws IOException {
+    public void run() throws IOException, XMLStreamException {
         if (reader.hasNext()) {
             writer.setColumnNames(reader.next());
         }

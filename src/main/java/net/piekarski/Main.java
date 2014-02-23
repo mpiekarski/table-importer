@@ -8,6 +8,7 @@ import net.piekarski.exception.FileFormatNotSupportedException;
 import net.piekarski.guice.MainModule;
 import org.apache.commons.cli.ParseException;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 public class Main {
@@ -30,7 +31,7 @@ public class Main {
     }
 
     private void tryToStart(String[] args) throws ParseException, CommandLineNotParsedException,
-            IOException, FileFormatNotSupportedException {
+            IOException, FileFormatNotSupportedException, XMLStreamException {
         cmd.parse(args);
 
         if (cmd.hasHelpOption()) {

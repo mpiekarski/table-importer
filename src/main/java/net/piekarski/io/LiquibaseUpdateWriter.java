@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class LiquibaseUpdateWriter extends AbstractTableWriter {
+public class LiquibaseUpdateWriter extends AbstractSqlTableWriter {
     private final String key;
 
     public LiquibaseUpdateWriter(File file, String tableName, String key) throws IOException {

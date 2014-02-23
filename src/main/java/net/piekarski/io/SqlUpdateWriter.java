@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class SqlUpdateWriter extends AbstractTableWriter {
+public class SqlUpdateWriter extends AbstractSqlTableWriter {
     private static final String SQL = "UPDATE %s SET %s WHERE %s;\n\n";
     private final String key;
 

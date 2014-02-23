@@ -40,4 +40,18 @@ public class MainIntegrationTest {
         Main.main(args);
         // then
     }
+
+    @Test
+    public void shouldProduceInsertLiquibaseChangesets() {
+        // given
+        String[] args = new String[]{
+                "-i", "src/test/resources/input.csv",
+                "-o", "src/test/resources/output.sql",
+                "-t", "person",
+                "-l"
+        };
+        // when
+        Main.main(args);
+        // then
+    }
 }

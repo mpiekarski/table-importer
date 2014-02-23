@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class SqlInsertWriter extends AbstractTableWriter {
+public class SqlInsertWriter extends AbstractSqlTableWriter {
     private static final String SQL = "INSERT INTO %s (%s) VALUES (%s);\n\n";
 
     public SqlInsertWriter(File file, String tableName) throws IOException {

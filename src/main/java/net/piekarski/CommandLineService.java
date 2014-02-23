@@ -21,6 +21,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,7 +60,8 @@ public class CommandLineService {
         return hasOption(HELP);
     }
 
-    public Converter getConverter() throws CommandLineNotParsedException, IOException, FileFormatNotSupportedException {
+    public Converter getConverter() throws CommandLineNotParsedException, IOException,
+            FileFormatNotSupportedException, XMLStreamException {
         if (cmd == null) {
             throw new CommandLineNotParsedException();
         }
@@ -82,7 +84,7 @@ public class CommandLineService {
         return cmd.getOptionValue(opt.getOpt());
     }
 
-    private Converter createConverter() throws IOException, FileFormatNotSupportedException {
+    private Converter createConverter() throws IOException, FileFormatNotSupportedException, XMLStreamException {
         File inputFile = new File(getOptionValue(INPUT));
         File outputFile = new File(getOptionValue(OUTPUT));
         TableReader tableReader = getTableReader(inputFile);
@@ -113,17 +115,17 @@ public class CommandLineService {
         return new ExcelReader(file);
     }
 
-    private TableWriter getTableWriter(File outputFile) throws IOException {
+    private TableWriter getTableWriter(File outputFile) throws IOException, XMLStreamException {
         return new ToStringAdapter(getStringTableWriter(outputFile));
     }
 
-    private StringTableWriter getStringTableWriter(File file) throws IOException {
+    private StringTableWriter getStringTableWriter(File file) throws IOException, XMLStreamException {
         return hasOption(LIQUIBASE) ?
                 getLiquibaseTableWriter(file) :
                 getSqlTableWriter(file);
     }
 
-    private StringTableWriter getLiquibaseTableWriter(File file) throws IOException {
+    private StringTableWriter getLiquibaseTableWriter(File file) throws IOException, XMLStreamException {
         return hasOption(UPDATE) ?
                 new LiquibaseUpdateWriter(file, getOptionValue(TABLE), getOptionValue(UPDATE)) :
                 new LiquibaseInsertWriter(file, getOptionValue(TABLE));
