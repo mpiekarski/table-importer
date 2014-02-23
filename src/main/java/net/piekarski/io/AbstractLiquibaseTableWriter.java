@@ -12,7 +12,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 public abstract class AbstractLiquibaseTableWriter extends AbstractTableWriter {
-
     protected final IndentingXMLStreamWriter writer;
 
     public AbstractLiquibaseTableWriter(File file, String tableName) throws XMLStreamException, IOException {
