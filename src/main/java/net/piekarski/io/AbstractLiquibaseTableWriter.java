@@ -15,7 +15,7 @@ public abstract class AbstractLiquibaseTableWriter extends AbstractTableWriter {
     protected final IndentingXMLStreamWriter writer;
 
     public AbstractLiquibaseTableWriter(File file, String tableName) throws XMLStreamException, IOException {
-        super(file, tableName);
+        super(tableName);
 
         OutputStream outputStream = new FileOutputStream(file);
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "utf-8");

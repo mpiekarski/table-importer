@@ -36,10 +36,10 @@ import static net.piekarski.type.OptionType.UPDATE;
 import static net.piekarski.type.OptionType.values;
 
 public class CommandLineService {
-    private Options options;
+    protected Options options;
     private HelpFormatter helpFormatter;
     private CommandLineParser parser;
-    private CommandLine cmd;
+    protected CommandLine cmd;
 
     @Inject
     public CommandLineService(HelpFormatter helpFormatter, CommandLineParser parser) {

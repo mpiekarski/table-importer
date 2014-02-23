@@ -25,7 +25,7 @@ public class Main {
         try {
             tryToStart(args);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() == null ? e.toString() : e.getMessage());
             cmd.printHelp();
         }
     }

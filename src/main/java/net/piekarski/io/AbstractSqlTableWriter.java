@@ -9,7 +9,7 @@ public abstract class AbstractSqlTableWriter extends AbstractTableWriter {
     protected Writer writer;
 
     protected AbstractSqlTableWriter(File file, String tableName) throws IOException {
-        super(file, tableName);
+        super(tableName);
         writer = new PrintWriter(file);
     }
 
