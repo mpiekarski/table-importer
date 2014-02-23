@@ -9,11 +9,11 @@ import java.util.List;
 
 public class SqlUpdateWriter extends AbstractSqlTableWriter {
     private static final String SQL = "UPDATE %s SET %s WHERE %s;\n\n";
-    private final String key;
+    private final String primaryKey;
 
-    public SqlUpdateWriter(File file, String tableName, String key) throws IOException {
+    public SqlUpdateWriter(File file, String tableName, String primaryKey) throws IOException {
         super(file, tableName);
-        this.key = key;
+        this.primaryKey = primaryKey;
     }
 
     @Override
@@ -36,11 +36,11 @@ public class SqlUpdateWriter extends AbstractSqlTableWriter {
     private String getWhereStatement(List<String> cellList) {
         return Joiner
                 .on("=")
-                .join(key, getValueForKey(cellList));
+                .join(primaryKey, getValueForPrimaryKey(cellList));
     }
 
-    private String getValueForKey(List<String> cellList) {
-        return cellList.get(columnNameList.indexOf(key));
+    private String getValueForPrimaryKey(List<String> cellList) {
+        return cellList.get(columnNameList.indexOf(primaryKey));
     }
 
     public String getSetStatement(List<String> cellList) {

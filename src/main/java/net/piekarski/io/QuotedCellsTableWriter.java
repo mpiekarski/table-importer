@@ -8,10 +8,10 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.List;
 
-public class QuotedCellsDecorator implements StringTableWriter {
+public class QuotedCellsTableWriter implements StringTableWriter {
     StringTableWriter writer;
 
-    public QuotedCellsDecorator(StringTableWriter writer) {
+    public QuotedCellsTableWriter(StringTableWriter writer) {
         this.writer = writer;
     }
 
@@ -32,7 +32,7 @@ public class QuotedCellsDecorator implements StringTableWriter {
                 .transform(new Function<String, String>() {
                     @Override
                     public String apply(String input) {
-                        return input.matches("^[0-9]+$") ? input : "\"" + input + "\"";
+                        return input.matches("^[0-9]+$") ? input : "'" + input + "'";
                     }
                 })
                 .toList();

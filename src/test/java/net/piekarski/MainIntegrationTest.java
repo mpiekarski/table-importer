@@ -20,7 +20,7 @@ public class MainIntegrationTest {
         String[] args = new String[]{
                 "-i", "src/test/resources/input.csv",
                 "-o", "src/test/resources/output.sql",
-                "-t", "person"
+                "-t", "PERSON"
         };
         // when
         Main.main(args);
@@ -33,7 +33,7 @@ public class MainIntegrationTest {
         String[] args = new String[]{
                 "-i", "src/test/resources/input.csv",
                 "-o", "src/test/resources/output.sql",
-                "-t", "person",
+                "-t", "PERSON",
                 "-U", "ID"
         };
         // when
@@ -47,7 +47,22 @@ public class MainIntegrationTest {
         String[] args = new String[]{
                 "-i", "src/test/resources/input.csv",
                 "-o", "src/test/resources/output.sql",
-                "-t", "person",
+                "-t", "PERSON",
+                "-l"
+        };
+        // when
+        Main.main(args);
+        // then
+    }
+
+    @Test
+    public void shouldProduceUpdateLiquibaseChangesets() {
+        // given
+        String[] args = new String[]{
+                "-i", "src/test/resources/input.csv",
+                "-o", "src/test/resources/output.sql",
+                "-t", "PERSON",
+                "-U", "ID",
                 "-l"
         };
         // when

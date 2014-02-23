@@ -8,12 +8,12 @@ import net.piekarski.exception.CommandLineNotParsedException;
 import net.piekarski.exception.FileFormatNotSupportedException;
 import net.piekarski.io.LiquibaseInsertWriter;
 import net.piekarski.io.LiquibaseUpdateWriter;
-import net.piekarski.io.QuotedCellsDecorator;
+import net.piekarski.io.QuotedCellsTableWriter;
 import net.piekarski.io.SqlInsertWriter;
 import net.piekarski.io.SqlUpdateWriter;
 import net.piekarski.io.StringTableWriter;
+import net.piekarski.io.StringTableWriterAdapter;
 import net.piekarski.io.TableWriter;
-import net.piekarski.io.ToStringAdapter;
 import net.piekarski.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -116,7 +116,7 @@ public class CommandLineService {
     }
 
     private TableWriter getTableWriter(File outputFile) throws IOException, XMLStreamException {
-        return new ToStringAdapter(getStringTableWriter(outputFile));
+        return new StringTableWriterAdapter(getStringTableWriter(outputFile));
     }
 
     private StringTableWriter getStringTableWriter(File file) throws IOException, XMLStreamException {
@@ -132,7 +132,7 @@ public class CommandLineService {
     }
 
     private StringTableWriter getSqlTableWriter(File file) throws IOException {
-        return new QuotedCellsDecorator(getNoQuotedCellsSqlWriter(file));
+        return new QuotedCellsTableWriter(getNoQuotedCellsSqlWriter(file));
     }
 
     private StringTableWriter getNoQuotedCellsSqlWriter(File file) throws IOException {

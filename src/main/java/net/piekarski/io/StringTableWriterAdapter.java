@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class ToStringAdapter implements TableWriter {
+public class StringTableWriterAdapter implements TableWriter {
     StringTableWriter writer;
 
-    public ToStringAdapter(StringTableWriter writer) {
+    public StringTableWriterAdapter(StringTableWriter writer) {
         this.writer = writer;
     }
 
