@@ -1,7 +1,7 @@
 package net.piekarski;
 
-import csv.TableReader;
 import net.piekarski.io.TableWriter;
+import net.piekarski.io.reader.LazyTableReader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,7 +22,7 @@ public class ConverterTest {
     private Converter converter;
 
     @Mock
-    private TableReader reader;
+    private LazyTableReader reader;
 
     @Mock
     private TableWriter writer;
@@ -31,9 +31,12 @@ public class ConverterTest {
     public void shouldRun() throws IOException, XMLStreamException {
         // given
         given(reader.hasNext()).willReturn(true, true, false);
+
         // when
         converter.run();
+
         // then
+        verify(reader).openFile();
         verify(reader, times(3)).hasNext();
         verify(reader, times(2)).next();
         verify(reader).close();

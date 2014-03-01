@@ -1,5 +1,7 @@
 package net.piekarski;
 
+import net.piekarski.type.OptionType;
+import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
@@ -9,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
@@ -45,9 +48,11 @@ public class CommandLineServiceTest {
     @Test
     public void shouldHasHelpOption() {
         // given
+        CommandLine cmd =  mock(CommandLine.class);
+        commandLineService.cmd = cmd;
         // when
         commandLineService.hasHelpOption();
         // then
-        verify(helpFormatter).printHelp(Main.APPLICATION_NAME, commandLineService.options);
+        verify(cmd).hasOption(OptionType.HELP.getOpt());
     }
 }

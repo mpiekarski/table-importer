@@ -1,9 +1,6 @@
 package net.piekarski;
 
 import com.google.inject.Inject;
-import csv.TableReader;
-import csv.impl.CSVReader;
-import csv.impl.ExcelReader;
 import net.piekarski.exception.CommandLineNotParsedException;
 import net.piekarski.exception.FileFormatNotSupportedException;
 import net.piekarski.io.LiquibaseInsertWriter;
@@ -14,6 +11,9 @@ import net.piekarski.io.SqlUpdateWriter;
 import net.piekarski.io.StringTableWriter;
 import net.piekarski.io.StringTableWriterAdapter;
 import net.piekarski.io.TableWriter;
+import net.piekarski.io.reader.CSVTableReader;
+import net.piekarski.io.reader.ExcelTableReader;
+import net.piekarski.io.reader.LazyTableReader;
 import net.piekarski.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -87,13 +87,13 @@ public class CommandLineService {
     private Converter createConverter() throws IOException, FileFormatNotSupportedException, XMLStreamException {
         File inputFile = new File(getOptionValue(INPUT));
         File outputFile = new File(getOptionValue(OUTPUT));
-        TableReader tableReader = getTableReader(inputFile);
+        LazyTableReader tableReader = getTableReader(inputFile);
         TableWriter tableWriter = getTableWriter(outputFile);
 
         return new Converter(tableReader, tableWriter);
     }
 
-    private TableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {
+    private LazyTableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {
         if (file.getName().endsWith(".csv")) {
             return getCsvReader(file);
         } else if (file.getName().endsWith(".xls")) {
@@ -102,8 +102,8 @@ public class CommandLineService {
         throw new FileFormatNotSupportedException();
     }
 
-    private CSVReader getCsvReader(File file) throws FileNotFoundException {
-        CSVReader reader = new CSVReader(file);
+    private LazyTableReader getCsvReader(File file) throws FileNotFoundException {
+        CSVTableReader reader = new CSVTableReader(file);
         if (hasOption(SEPARATOR)) {
             String separator = getOptionValue(SEPARATOR);
             reader.setColumnSeparator(separator.charAt(0));
@@ -111,8 +111,8 @@ public class CommandLineService {
         return reader;
     }
 
-    private ExcelReader getExcelReader(File file) throws FileNotFoundException {
-        return new ExcelReader(file);
+    private LazyTableReader getExcelReader(File file) {
+        return new ExcelTableReader(file);
     }
 
     private TableWriter getTableWriter(File outputFile) throws IOException, XMLStreamException {
