@@ -1,4 +1,4 @@
 package net.piekarski.exception;
 
-public class CommandLineNotParsedException extends Exception {
+public class CommandLineNotParsedException extends TableImporterException {
 }
