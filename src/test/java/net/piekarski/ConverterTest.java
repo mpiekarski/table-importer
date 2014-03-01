@@ -1,6 +1,6 @@
 package net.piekarski;
 
-import net.piekarski.io.TableWriter;
+import net.piekarski.io.writer.LazyTableWriter;
 import net.piekarski.io.reader.LazyTableReader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ public class ConverterTest {
     private LazyTableReader reader;
 
     @Mock
-    private TableWriter writer;
+    private LazyTableWriter writer;
 
     @Test
     public void shouldRun() throws IOException, XMLStreamException {

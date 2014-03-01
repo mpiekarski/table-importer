@@ -1,6 +1,5 @@
-package net.piekarski.io;
+package net.piekarski.io.writer;
 
-import java.io.IOException;
 import java.util.List;
 
 public abstract class AbstractTableWriter implements StringTableWriter {
@@ -8,7 +7,7 @@ public abstract class AbstractTableWriter implements StringTableWriter {
 
     protected String tableName;
 
-    protected AbstractTableWriter(String tableName) throws IOException {
+    protected AbstractTableWriter(String tableName) {
         this.tableName = tableName;
     }
 

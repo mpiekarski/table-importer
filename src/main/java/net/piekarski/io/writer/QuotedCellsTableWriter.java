@@ -1,11 +1,13 @@
-package net.piekarski.io;
+package net.piekarski.io.writer;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
 import javax.xml.stream.XMLStreamException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class QuotedCellsTableWriter implements StringTableWriter {
@@ -53,5 +55,10 @@ public class QuotedCellsTableWriter implements StringTableWriter {
     @Override
     public void close() throws IOException, XMLStreamException {
         writer.close();
+    }
+
+    @Override
+    public void openFile() throws FileNotFoundException, XMLStreamException, UnsupportedEncodingException {
+        writer.openFile();
     }
 }

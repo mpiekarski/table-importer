@@ -1,4 +1,4 @@
-package net.piekarski.io;
+package net.piekarski.io.writer;
 
 import com.google.common.base.Joiner;
 import net.piekarski.util.TableUtil;

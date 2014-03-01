@@ -1,15 +1,17 @@
-package net.piekarski.io;
+package net.piekarski.io.writer;
 
 import com.google.common.base.Functions;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
 import javax.xml.stream.XMLStreamException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
-public class StringTableWriterAdapter implements TableWriter {
+public class StringTableWriterAdapter implements LazyTableWriter {
     StringTableWriter writer;
 
     public StringTableWriterAdapter(StringTableWriter writer) {
@@ -58,5 +60,10 @@ public class StringTableWriterAdapter implements TableWriter {
     @Override
     public void close() throws IOException, XMLStreamException {
         writer.close();
+    }
+
+    @Override
+    public void openFile() throws FileNotFoundException, UnsupportedEncodingException, XMLStreamException {
+        writer.openFile();
     }
 }

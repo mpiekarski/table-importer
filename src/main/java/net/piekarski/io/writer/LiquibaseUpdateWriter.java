@@ -1,4 +1,4 @@
-package net.piekarski.io;
+package net.piekarski.io.writer;
 
 import net.piekarski.Main;
 import net.piekarski.util.TableUtil;

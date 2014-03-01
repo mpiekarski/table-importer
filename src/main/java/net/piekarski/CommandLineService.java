@@ -3,14 +3,14 @@ package net.piekarski;
 import com.google.inject.Inject;
 import net.piekarski.exception.CommandLineNotParsedException;
 import net.piekarski.exception.FileFormatNotSupportedException;
-import net.piekarski.io.LiquibaseInsertWriter;
-import net.piekarski.io.LiquibaseUpdateWriter;
-import net.piekarski.io.QuotedCellsTableWriter;
-import net.piekarski.io.SqlInsertWriter;
-import net.piekarski.io.SqlUpdateWriter;
-import net.piekarski.io.StringTableWriter;
-import net.piekarski.io.StringTableWriterAdapter;
-import net.piekarski.io.TableWriter;
+import net.piekarski.io.writer.LazyTableWriter;
+import net.piekarski.io.writer.LiquibaseInsertWriter;
+import net.piekarski.io.writer.LiquibaseUpdateWriter;
+import net.piekarski.io.writer.QuotedCellsTableWriter;
+import net.piekarski.io.writer.SqlInsertWriter;
+import net.piekarski.io.writer.SqlUpdateWriter;
+import net.piekarski.io.writer.StringTableWriter;
+import net.piekarski.io.writer.StringTableWriterAdapter;
 import net.piekarski.io.reader.CSVTableReader;
 import net.piekarski.io.reader.ExcelTableReader;
 import net.piekarski.io.reader.LazyTableReader;
@@ -88,9 +88,9 @@ public class CommandLineService {
         File inputFile = new File(getOptionValue(INPUT));
         File outputFile = new File(getOptionValue(OUTPUT));
         LazyTableReader tableReader = getTableReader(inputFile);
-        TableWriter tableWriter = getTableWriter(outputFile);
+        LazyTableWriter lazyTableWriter = getTableWriter(outputFile);
 
-        return new Converter(tableReader, tableWriter);
+        return new Converter(tableReader, lazyTableWriter);
     }
 
     private LazyTableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {
@@ -115,7 +115,7 @@ public class CommandLineService {
         return new ExcelTableReader(file);
     }
 
-    private TableWriter getTableWriter(File outputFile) throws IOException, XMLStreamException {
+    private LazyTableWriter getTableWriter(File outputFile) throws IOException, XMLStreamException {
         return new StringTableWriterAdapter(getStringTableWriter(outputFile));
     }
 
