@@ -78,4 +78,13 @@ public class StringTableWriterAdapterTest {
         // then
         verify(stringTableWriter).close();
     }
+
+    @Test
+    public void shouldOpenFile() throws IOException, XMLStreamException {
+        // given
+        // when
+        stringTableWriterAdapter.openFile();
+        // then
+        verify(stringTableWriter).openFile();
+    }
 }
