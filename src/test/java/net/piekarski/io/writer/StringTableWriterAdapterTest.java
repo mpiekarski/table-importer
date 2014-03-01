@@ -1,6 +1,7 @@
 package net.piekarski.io.writer;
 
 import com.google.common.collect.Lists;
+import net.piekarski.exception.WrongPrimaryKeyException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,7 +23,7 @@ public class StringTableWriterAdapterTest {
     private StringTableWriter stringTableWriter;
 
     @Test
-    public void shouldSetColumnNames() {
+    public void shouldSetColumnNames() throws WrongPrimaryKeyException {
         // given
         Object[] columnNames = new Object[]{"columnName1", "columnName2"};
         // when

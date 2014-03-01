@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class TableUtil {
-    public static Map getMapFromLists(List<String> keys, List<String> values) {
-        Map map = Maps.newLinkedHashMap();
+    public static Map<String, String> getMapFromLists(List<String> keys, List<String> values) {
+        Map<String, String> map = Maps.newLinkedHashMap();
 
         Iterator<String> keysIterator = keys.iterator();
         Iterator<String> valuesIterator = values.iterator();

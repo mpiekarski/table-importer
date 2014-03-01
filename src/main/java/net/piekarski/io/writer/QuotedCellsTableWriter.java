@@ -3,6 +3,7 @@ package net.piekarski.io.writer;
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
+import net.piekarski.exception.WrongPrimaryKeyException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.FileNotFoundException;
@@ -18,7 +19,7 @@ public class QuotedCellsTableWriter implements StringTableWriter {
     }
 
     @Override
-    public void setColumnNameList(List<String> columnNameList) {
+    public void setColumnNameList(List<String> columnNameList) throws WrongPrimaryKeyException {
         writer.setColumnNameList(columnNameList);
     }
 

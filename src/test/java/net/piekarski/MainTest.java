@@ -1,7 +1,6 @@
 package net.piekarski;
 
-import net.piekarski.exception.CommandLineNotParsedException;
-import net.piekarski.exception.FileFormatNotSupportedException;
+import net.piekarski.exception.TableImporterException;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,7 @@ public class MainTest {
     @Test
     public void shouldPrintHelp() throws ParseException {
         // given
-        String[] args = null;
+        String[] args = new String[]{};
         when(cmd.hasHelpOption()).thenReturn(true);
         // when
         main.start(args);
@@ -37,10 +36,10 @@ public class MainTest {
     }
 
     @Test
-    public void shouldRunConverter() throws ParseException, IOException, FileFormatNotSupportedException,
-            CommandLineNotParsedException, XMLStreamException {
+    public void shouldRunConverter() throws ParseException, IOException, XMLStreamException,
+            TableImporterException {
         // given
-        String[] args = null;
+        String[] args = new String[]{};
         Converter converter = mock(Converter.class);
         when(cmd.getConverter()).thenReturn(converter);
         // when

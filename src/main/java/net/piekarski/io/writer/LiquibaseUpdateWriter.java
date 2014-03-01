@@ -1,6 +1,7 @@
 package net.piekarski.io.writer;
 
 import net.piekarski.Main;
+import net.piekarski.exception.WrongPrimaryKeyException;
 import net.piekarski.util.TableUtil;
 
 import javax.xml.stream.XMLStreamException;
@@ -51,6 +52,15 @@ public class LiquibaseUpdateWriter extends AbstractLiquibaseTableWriter {
         writer.writeEndElement();
         writer.writeEndElement();
         writer.writeEndDocument();
+    }
+
+    @Override
+    public void setColumnNameList(List<String> columnNameList) throws WrongPrimaryKeyException {
+        if (columnNameList != null && columnNameList.contains(primaryKey)) {
+            super.setColumnNameList(columnNameList);
+        } else {
+            throw new WrongPrimaryKeyException();
+        }
     }
 
     private String getValueForPrimaryKey(List<String> cellList) {

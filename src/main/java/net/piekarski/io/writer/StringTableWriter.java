@@ -1,5 +1,6 @@
 package net.piekarski.io.writer;
 
+import net.piekarski.exception.WrongPrimaryKeyException;
 import net.piekarski.io.LazyFile;
 
 import javax.xml.stream.XMLStreamException;
@@ -7,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface StringTableWriter extends LazyFile {
-    void setColumnNameList(List<String> columnNameList);
+    void setColumnNameList(List<String> columnNameList) throws WrongPrimaryKeyException;
 
     void writeHeader() throws IOException, XMLStreamException;
 

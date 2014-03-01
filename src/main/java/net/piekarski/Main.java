@@ -3,8 +3,7 @@ package net.piekarski;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import net.piekarski.exception.CommandLineNotParsedException;
-import net.piekarski.exception.FileFormatNotSupportedException;
+import net.piekarski.exception.TableImporterException;
 import net.piekarski.guice.MainModule;
 import org.apache.commons.cli.ParseException;
 
@@ -30,8 +29,8 @@ public class Main {
         }
     }
 
-    private void tryToStart(String[] args) throws ParseException, CommandLineNotParsedException,
-            IOException, FileFormatNotSupportedException, XMLStreamException {
+    private void tryToStart(String[] args) throws ParseException, IOException, XMLStreamException,
+            TableImporterException {
         cmd.parse(args);
 
         if (cmd.hasHelpOption()) {

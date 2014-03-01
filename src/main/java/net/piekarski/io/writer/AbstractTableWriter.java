@@ -1,5 +1,7 @@
 package net.piekarski.io.writer;
 
+import net.piekarski.exception.WrongPrimaryKeyException;
+
 import java.util.List;
 
 public abstract class AbstractTableWriter implements StringTableWriter {
@@ -12,7 +14,7 @@ public abstract class AbstractTableWriter implements StringTableWriter {
     }
 
     @Override
-    public void setColumnNameList(List<String> columnNameList) {
+    public void setColumnNameList(List<String> columnNameList) throws WrongPrimaryKeyException {
         this.columnNameList = columnNameList;
     }
 }

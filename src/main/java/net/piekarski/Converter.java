@@ -1,7 +1,8 @@
 package net.piekarski;
 
-import net.piekarski.io.writer.LazyTableWriter;
+import net.piekarski.exception.WrongPrimaryKeyException;
 import net.piekarski.io.reader.LazyTableReader;
+import net.piekarski.io.writer.LazyTableWriter;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
@@ -15,14 +16,14 @@ public class Converter {
         this.writer = writer;
     }
 
-    public void run() throws IOException, XMLStreamException {
+    public void run() throws IOException, XMLStreamException, WrongPrimaryKeyException {
         reader.openFile();
-        writer.openFile();
 
         if (reader.hasNext()) {
             writer.setColumnNames(reader.next());
         }
 
+        writer.openFile();
         writer.writeHeader();
 
         while (reader.hasNext()) {

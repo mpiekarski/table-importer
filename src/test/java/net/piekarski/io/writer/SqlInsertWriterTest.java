@@ -1,6 +1,7 @@
 package net.piekarski.io.writer;
 
 import com.google.common.collect.Lists;
+import net.piekarski.exception.WrongPrimaryKeyException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class SqlInsertWriterTest {
     private Writer writer;
 
     @Before
-    public void setup() {
+    public void setup() throws WrongPrimaryKeyException {
         sqlInsertWriter.tableName = "tableName";
         sqlInsertWriter.setColumnNameList(Lists.newArrayList("ID", "NAME"));
         sqlInsertWriter.writer = writer;

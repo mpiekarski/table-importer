@@ -1,5 +1,6 @@
 package net.piekarski;
 
+import net.piekarski.exception.WrongPrimaryKeyException;
 import net.piekarski.io.writer.LazyTableWriter;
 import net.piekarski.io.reader.LazyTableReader;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class ConverterTest {
     private LazyTableWriter writer;
 
     @Test
-    public void shouldRun() throws IOException, XMLStreamException {
+    public void shouldRun() throws IOException, XMLStreamException, WrongPrimaryKeyException {
         // given
         given(reader.hasNext()).willReturn(true, true, false);
 

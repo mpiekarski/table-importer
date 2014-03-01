@@ -1,6 +1,7 @@
 package net.piekarski.io.writer;
 
 import com.google.common.base.Joiner;
+import net.piekarski.exception.WrongPrimaryKeyException;
 import net.piekarski.util.TableUtil;
 
 import java.io.File;
@@ -27,6 +28,15 @@ public class SqlUpdateWriter extends AbstractSqlTableWriter {
 
     @Override
     public void writeFooter() throws IOException {
+    }
+
+    @Override
+    public void setColumnNameList(List<String> columnNameList) throws WrongPrimaryKeyException {
+        if (columnNameList != null && columnNameList.contains(primaryKey)) {
+            super.setColumnNameList(columnNameList);
+        } else {
+            throw new WrongPrimaryKeyException();
+        }
     }
 
     private String getFormattedSql(List<String> cellList) {

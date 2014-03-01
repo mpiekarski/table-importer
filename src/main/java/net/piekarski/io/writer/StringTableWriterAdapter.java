@@ -3,6 +3,7 @@ package net.piekarski.io.writer;
 import com.google.common.base.Functions;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
+import net.piekarski.exception.WrongPrimaryKeyException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.FileNotFoundException;
@@ -19,7 +20,7 @@ public class StringTableWriterAdapter implements LazyTableWriter {
     }
 
     @Override
-    public void setColumnNames(Object[] columnNames) {
+    public void setColumnNames(Object[] columnNames) throws WrongPrimaryKeyException {
         List<Object> headerList = Arrays.asList(columnNames);
 
         ImmutableList<String> columnNameList = FluentIterable
