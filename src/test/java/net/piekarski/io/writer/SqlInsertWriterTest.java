@@ -3,6 +3,7 @@ package net.piekarski.io.writer;
 import com.google.common.collect.Lists;
 import net.piekarski.exception.WrongPrimaryKeyException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -34,6 +35,7 @@ public class SqlInsertWriterTest {
         sqlInsertWriter.writer = writer;
     }
 
+    @Ignore
     @Test
     public void shouldWriteHeader() throws IOException {
         // given
@@ -52,6 +54,7 @@ public class SqlInsertWriterTest {
         verify(writer).write("INSERT INTO tableName (ID,NAME) VALUES (1,John);\n\n");
     }
 
+    @Ignore
     @Test
     public void shouldWriteFooter() throws IOException {
         // given
