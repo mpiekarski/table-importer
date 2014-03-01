@@ -9,9 +9,9 @@ import java.util.List;
 
 public class SqlUpdateWriter extends AbstractSqlTableWriter {
     private static final String SQL = "UPDATE %s SET %s WHERE %s;\n\n";
-    private final String primaryKey;
+    protected String primaryKey;
 
-    public SqlUpdateWriter(File file, String tableName, String primaryKey) throws IOException {
+    public SqlUpdateWriter(File file, String tableName, String primaryKey) {
         super(file, tableName);
         this.primaryKey = primaryKey;
     }
@@ -43,7 +43,7 @@ public class SqlUpdateWriter extends AbstractSqlTableWriter {
         return cellList.get(columnNameList.indexOf(primaryKey));
     }
 
-    public String getSetStatement(List<String> cellList) {
+    private String getSetStatement(List<String> cellList) {
         return Joiner
                 .on(" AND ")
                 .withKeyValueSeparator("=")
