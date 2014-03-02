@@ -1,6 +1,5 @@
 package net.piekarski.ti;
 
-import net.piekarski.ti.Main;
 import org.joda.time.DateTimeUtils;
 import org.junit.After;
 import org.junit.Before;
