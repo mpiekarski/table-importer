@@ -1,0 +1,12 @@
+UPDATE PERSON SET ID=1 AND NAME='John' AND AGE=13 AND TEXT='one line text' WHERE ID=1;
+
+UPDATE PERSON SET ID=2 AND NAME='' AND AGE=23 AND TEXT='' WHERE ID=2;
+
+UPDATE PERSON SET ID=3 AND NAME='Jane' AND AGE=28 AND TEXT='Hello!
+
+This is not a very
+long message.
+
+    Regards,
+    Jane' WHERE ID=3;
+

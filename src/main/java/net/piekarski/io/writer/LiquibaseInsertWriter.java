@@ -2,6 +2,7 @@ package net.piekarski.io.writer;
 
 import net.piekarski.Main;
 import net.piekarski.util.TableUtil;
+import org.joda.time.DateTime;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
@@ -19,7 +20,7 @@ public class LiquibaseInsertWriter extends AbstractLiquibaseTableWriter {
         writer.writeStartDocument();
         writer.writeStartElement("databaseChangeLog");
         writer.writeStartElement("changeSet");
-        writer.writeAttribute("id", String.valueOf(System.currentTimeMillis()));
+        writer.writeAttribute("id", String.valueOf(DateTime.now().getMillis()));
         writer.writeAttribute("author", Main.APPLICATION_NAME);
     }
 

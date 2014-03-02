@@ -1,4 +1,10 @@
-ID;NAME;AGE
-1;John;13
-2;Joe;23
-3;Jane;28
+ID;NAME;AGE;TEXT
+1;John;13;one line text
+2;;23;
+3;Jane;28;"Hello!
+
+This is not a very
+long message.
+
+    Regards,
+    Jane"

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<databaseChangeLog>
+    <changeSet id="0" author="table-importer">
+        <insert tableName="PERSON">
+            <column name="ID" value="1"/>
+            <column name="NAME" value="John"/>
+            <column name="AGE" value="13"/>
+            <column name="TEXT" value="one line text"/>
+        </insert>
+        <insert tableName="PERSON">
+            <column name="ID" value="2"/>
+            <column name="NAME" value=""/>
+            <column name="AGE" value="23"/>
+            <column name="TEXT" value=""/>
+        </insert>
+        <insert tableName="PERSON">
+            <column name="ID" value="3"/>
+            <column name="NAME" value="Jane"/>
+            <column name="AGE" value="28"/>
+            <column name="TEXT" value="Hello!
+
+This is not a very
+long message.
+
+    Regards,
+    Jane"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

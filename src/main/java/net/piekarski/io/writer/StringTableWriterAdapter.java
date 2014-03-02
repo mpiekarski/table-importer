@@ -1,5 +1,6 @@
 package net.piekarski.io.writer;
 
+import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
@@ -42,6 +43,12 @@ public class StringTableWriterAdapter implements LazyTableWriter {
 
         ImmutableList<String> stringCellList = FluentIterable
                 .from(cellList)
+                .transform(new Function<Object, Object>() {
+                    @Override
+                    public Object apply(Object input) {
+                        return input == null ? "" : input;
+                    }
+                })
                 .transform(Functions.toStringFunction())
                 .toList();
 
