@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LiquibaseUpdateWriter extends AbstractLiquibaseTableWriter {
-    private final String primaryKey;
+    protected String primaryKey;
 
     public LiquibaseUpdateWriter(File file, String tableName, String primaryKey) throws IOException, XMLStreamException {
         super(file, tableName);
@@ -41,7 +41,7 @@ public class LiquibaseUpdateWriter extends AbstractLiquibaseTableWriter {
         }
 
         writer.writeStartElement("where");
-        writer.writeCharacters(primaryKey + "=" + "'" + getValueForPrimaryKey(cellList) + "'");
+        writer.writeCharacters(primaryKey + "=" + getValueForPrimaryKey(cellList));
         writer.writeEndElement();
 
         writer.writeEndElement();

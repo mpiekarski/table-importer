@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 
 public abstract class AbstractLiquibaseTableWriter extends AbstractTableWriter {
     private final File file;
-    protected IndentingXMLStreamWriter writer;
+    protected XMLStreamWriter writer;
 
     public AbstractLiquibaseTableWriter(File file, String tableName) {
         super(tableName);
@@ -29,8 +29,10 @@ public abstract class AbstractLiquibaseTableWriter extends AbstractTableWriter {
                 .newInstance()
                 .createXMLStreamWriter(outputStreamWriter);
 
-        writer = new IndentingXMLStreamWriter(xmlStreamWriter);
+        IndentingXMLStreamWriter writer = new IndentingXMLStreamWriter(xmlStreamWriter);
         writer.setIndentStep("    ");
+
+        this.writer = writer;
     }
 
     @Override
