@@ -12,38 +12,33 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.googlecode.catchexception.CatchException.catchException;
-import static com.googlecode.catchexception.CatchException.caughtException;
-import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LiquibaseUpdateWriterTest {
+public class LiquibaseInsertWriterTest {
     @InjectMocks
-    private LiquibaseUpdateWriter liquibaseUpdateWriter;
+    private LiquibaseInsertWriter liquibaseInsertWriter;
 
     @Mock
     private XMLStreamWriter writer;
 
     @Before
     public void setup() throws WrongPrimaryKeyException {
-        liquibaseUpdateWriter.tableName = "tableName";
-        liquibaseUpdateWriter.primaryKey = "ID";
-        liquibaseUpdateWriter.setColumnNameList(Lists.newArrayList("ID", "NAME"));
-        liquibaseUpdateWriter.writer = writer;
+        liquibaseInsertWriter.tableName = "tableName";
+        liquibaseInsertWriter.setColumnNameList(Lists.newArrayList("ID", "NAME"));
+        liquibaseInsertWriter.writer = writer;
     }
 
     @Test
     public void shouldWriteHeader() throws XMLStreamException {
         // given
         // when
-        liquibaseUpdateWriter.writeHeader();
+        liquibaseInsertWriter.writeHeader();
         // then
         verify(writer).writeStartDocument();
         verify(writer).writeStartElement("databaseChangeLog");
@@ -57,9 +52,9 @@ public class LiquibaseUpdateWriterTest {
         // given
         List<String> cellList = Lists.newArrayList("1", "John");
         // when
-        liquibaseUpdateWriter.write(cellList);
+        liquibaseInsertWriter.write(cellList);
         // then
-        verify(writer).writeStartElement("update");
+        verify(writer).writeStartElement("insert");
         verify(writer).writeAttribute("tableName", "tableName");
 
         verify(writer, times(2)).writeEmptyElement("column");
@@ -70,29 +65,16 @@ public class LiquibaseUpdateWriterTest {
         verify(writer).writeAttribute("name", "NAME");
         verify(writer).writeAttribute("value", "John");
 
-        verify(writer).writeStartElement("where");
-        verify(writer).writeCharacters("ID=1");
-
-        verify(writer, times(2)).writeEndElement();
+        verify(writer).writeEndElement();
     }
 
     @Test
     public void shouldWriteFooter() throws XMLStreamException {
         // given
         // when
-        liquibaseUpdateWriter.writeFooter();
+        liquibaseInsertWriter.writeFooter();
         // then
         verify(writer, times(2)).writeEndElement();
         verify(writer).writeEndDocument();
-    }
-
-    @Test
-    public void shouldSetColumnNameList() throws WrongPrimaryKeyException {
-        // given
-        ArrayList<String> columnNameList = Lists.newArrayList("NOT_PRIMARY_KEY");
-        // when
-        catchException(liquibaseUpdateWriter).setColumnNameList(columnNameList);
-        // then
-        assertThat(caughtException()).isInstanceOf(WrongPrimaryKeyException.class);
     }
 }
