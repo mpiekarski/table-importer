@@ -40,13 +40,13 @@ public class SqlUpdateWriterTest {
         sqlUpdateWriter.writer = writer;
     }
 
-    @Ignore
     @Test
     public void shouldWriteHeader() throws IOException {
         // given
         // when
         sqlUpdateWriter.writeHeader();
         // then
+        verify(writer).write("--liquibase formatted sql\n\n");
     }
 
     @Test
@@ -56,7 +56,7 @@ public class SqlUpdateWriterTest {
         // when
         sqlUpdateWriter.write(cellList);
         // then
-        verify(writer).write("UPDATE tableName SET ID=1 AND NAME=John WHERE ID=1;\n\n");
+        verify(writer).write("UPDATE tableName SET ID=1,NAME=John WHERE ID=1;\n\n");
     }
 
     @Ignore

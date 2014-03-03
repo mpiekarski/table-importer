@@ -15,6 +15,7 @@ public class SqlInsertWriter extends AbstractSqlTableWriter {
 
     @Override
     public void writeHeader() throws IOException {
+        writer.write("--liquibase formatted sql\n\n");
     }
 
     @Override

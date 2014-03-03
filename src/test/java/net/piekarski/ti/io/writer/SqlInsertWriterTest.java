@@ -35,13 +35,13 @@ public class SqlInsertWriterTest {
         sqlInsertWriter.writer = writer;
     }
 
-    @Ignore
     @Test
     public void shouldWriteHeader() throws IOException {
         // given
         // when
         sqlInsertWriter.writeHeader();
         // then
+        verify(writer).write("--liquibase formatted sql\n\n");
     }
 
     @Test
