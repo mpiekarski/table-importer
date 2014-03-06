@@ -7,6 +7,7 @@ import net.piekarski.ti.util.TableUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class SqlUpdateWriter extends AbstractSqlTableWriter {
     private static final String SQL = "UPDATE %s SET %s WHERE %s;\n\n";
@@ -55,9 +56,11 @@ public class SqlUpdateWriter extends AbstractSqlTableWriter {
     }
 
     private String getSetStatement(List<String> cellList) {
+        Map<String,String> keyValueMap = TableUtil.getMapFromLists(columnNameList, cellList);
+        keyValueMap.remove(primaryKey);
         return Joiner
                 .on(",")
                 .withKeyValueSeparator("=")
-                .join(TableUtil.getMapFromLists(columnNameList, cellList));
+                .join(keyValueMap);
     }
 }

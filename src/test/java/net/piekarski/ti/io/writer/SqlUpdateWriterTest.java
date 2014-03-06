@@ -56,7 +56,7 @@ public class SqlUpdateWriterTest {
         // when
         sqlUpdateWriter.write(cellList);
         // then
-        verify(writer).write("UPDATE tableName SET ID=1,NAME=John WHERE ID=1;\n\n");
+        verify(writer).write("UPDATE tableName SET NAME=John WHERE ID=1;\n\n");
     }
 
     @Ignore
