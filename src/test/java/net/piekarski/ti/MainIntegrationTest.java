@@ -62,7 +62,7 @@ public class MainIntegrationTest {
     }
 
     @Test
-    public void shouldProduceInsertLiquibaseChangesets() {
+    public void shouldProduceInsertLiquibaseChangeset() {
         // given
         String[] args = new String[]{
                 "-i", "src/test/resources/input.csv",
@@ -82,7 +82,7 @@ public class MainIntegrationTest {
     }
 
     @Test
-    public void shouldProduceUpdateLiquibaseChangesets() {
+    public void shouldProduceUpdateLiquibaseChangeset() {
         // given
         String[] args = new String[]{
                 "-i", "src/test/resources/input.csv",
