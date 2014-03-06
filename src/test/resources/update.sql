@@ -12,3 +12,5 @@ long message.
     Regards,
     Jane' WHERE ID=3;
 
+UPDATE PERSON SET NAME='Jack',AGE=44,TEXT='${url} = http://host:80/test?x=1&y=""' WHERE ID=4;
+

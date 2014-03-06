@@ -12,3 +12,5 @@ long message.
     Regards,
     Jane');
 
+INSERT INTO PERSON (ID,NAME,AGE,TEXT) VALUES (4,'Jack',44,'${url} = http://host:80/test?x=1&y=""');
+
