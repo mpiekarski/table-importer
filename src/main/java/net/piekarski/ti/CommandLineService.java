@@ -6,7 +6,7 @@ import net.piekarski.ti.exception.FileFormatNotSupportedException;
 import net.piekarski.ti.io.writer.LazyTableWriter;
 import net.piekarski.ti.io.writer.LiquibaseInsertWriter;
 import net.piekarski.ti.io.writer.LiquibaseUpdateWriter;
-import net.piekarski.ti.io.writer.QuotedCellsTableWriter;
+import net.piekarski.ti.io.writer.ReplaceCharsForSqlTableWriter;
 import net.piekarski.ti.io.writer.SqlInsertWriter;
 import net.piekarski.ti.io.writer.SqlUpdateWriter;
 import net.piekarski.ti.io.writer.StringTableWriter;
@@ -132,7 +132,7 @@ public class CommandLineService {
     }
 
     private StringTableWriter getSqlTableWriter(File file) throws IOException {
-        return new QuotedCellsTableWriter(getNoQuotedCellsSqlWriter(file));
+        return new ReplaceCharsForSqlTableWriter(getNoQuotedCellsSqlWriter(file));
     }
 
     private StringTableWriter getNoQuotedCellsSqlWriter(File file) throws IOException {

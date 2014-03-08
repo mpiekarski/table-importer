@@ -17,48 +17,57 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class QuotedCellsTableWriterTest {
-    @InjectMocks
-    private ReplaceCharsForSqlTableWriter quotedCellsTableWriter;
-
+public class ReplaceCharsForSqlTableWriterTest {
     @Mock
     private StringTableWriter stringTableWriter;
+
+    @InjectMocks
+    private ReplaceCharsForSqlTableWriter replaceCharsForSqlTableWriter = new ReplaceCharsForSqlTableWriter(stringTableWriter);
 
     @Test
     public void shouldSetColumnNameList() throws WrongPrimaryKeyException {
         // given
-        List<String> columnNameList = Lists.newArrayList("ID", "NAME");
+        List<String> cellList = Lists.newArrayList("1", "John");
         // when
-        quotedCellsTableWriter.setColumnNameList(columnNameList);
+        replaceCharsForSqlTableWriter.setColumnNameList(cellList);
         // then
-        verify(stringTableWriter).setColumnNameList(columnNameList);
+        verify(stringTableWriter).setColumnNameList(cellList);
     }
 
     @Test
     public void shouldWriteHeader() throws IOException, XMLStreamException {
         // given
         // when
-        quotedCellsTableWriter.writeHeader();
+        replaceCharsForSqlTableWriter.writeHeader();
         // then
         verify(stringTableWriter).writeHeader();
     }
 
     @Test
-    public void shouldWrite() throws IOException, XMLStreamException {
+    public void shouldWriteNonNumericCell() throws IOException, XMLStreamException {
         // given
-        List<String> cellList = Lists.newArrayList("1", "John");
-        List<String> quotedCellList = Lists.newArrayList("1", "'John'");
+        List<String> cellList = Lists.newArrayList("'\"$&");
         // when
-        quotedCellsTableWriter.write(cellList);
+        replaceCharsForSqlTableWriter.write(cellList);
         // then
-        verify(stringTableWriter).write(quotedCellList);
+        verify(stringTableWriter).write(Lists.newArrayList("''chr(039)''chr(034)''chr(036)''chr(038)''"));
+    }
+
+    @Test
+    public void shouldWriteNumericCell() throws IOException, XMLStreamException {
+        // given
+        List<String> cellList = Lists.newArrayList("1");
+        // when
+        replaceCharsForSqlTableWriter.write(cellList);
+        // then
+        verify(stringTableWriter).write(Lists.newArrayList("1"));
     }
 
     @Test
     public void shouldWriteFooter() throws IOException, XMLStreamException {
         // given
         // when
-        quotedCellsTableWriter.writeFooter();
+        replaceCharsForSqlTableWriter.writeFooter();
         // then
         verify(stringTableWriter).writeFooter();
     }
@@ -67,7 +76,7 @@ public class QuotedCellsTableWriterTest {
     public void shouldFlush() throws IOException, XMLStreamException {
         // given
         // when
-        quotedCellsTableWriter.flush();
+        replaceCharsForSqlTableWriter.flush();
         // then
         verify(stringTableWriter).flush();
     }
@@ -76,7 +85,7 @@ public class QuotedCellsTableWriterTest {
     public void shouldClose() throws IOException, XMLStreamException {
         // given
         // when
-        quotedCellsTableWriter.close();
+        replaceCharsForSqlTableWriter.close();
         // then
         verify(stringTableWriter).close();
     }
@@ -85,7 +94,7 @@ public class QuotedCellsTableWriterTest {
     public void shouldOpenFile() throws FileNotFoundException, UnsupportedEncodingException, XMLStreamException {
         // given
         // when
-        quotedCellsTableWriter.openFile();
+        replaceCharsForSqlTableWriter.openFile();
         // then
         verify(stringTableWriter).openFile();
     }

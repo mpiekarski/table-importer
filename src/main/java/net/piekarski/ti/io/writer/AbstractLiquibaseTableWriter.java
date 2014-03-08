@@ -1,7 +1,5 @@
 package net.piekarski.ti.io.writer;
 
-//import com.sun.xml.internal.txw2.output.IndentingXMLStreamWriter;
-
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;

@@ -12,5 +12,5 @@ long message.
     Regards,
     Jane');
 
-INSERT INTO PERSON (ID,NAME,AGE,TEXT) VALUES (4,'Jack',44,'${url} = http://host:80/test?x=1&y=""');
+INSERT INTO PERSON (ID,NAME,AGE,TEXT) VALUES (4,'Jack',44,''chr(036)'{url} = http://host:80/test?x=1'chr(038)'y='chr(034)''chr(034)'');
 
