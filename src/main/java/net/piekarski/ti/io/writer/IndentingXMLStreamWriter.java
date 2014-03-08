@@ -62,14 +62,14 @@ public class IndentingXMLStreamWriter implements XMLStreamWriter {
 
     @Override
     public void writeEndElement() throws XMLStreamException {
-        decreaseLevenAndIndent();
+        decreaseLevelAndIndent();
         previousElement = ElementType.ELEMENT;
         xmlStreamWriter.writeEndElement();
     }
 
     @Override
     public void writeEndDocument() throws XMLStreamException {
-        decreaseLevenAndIndent();
+        decreaseLevelAndIndent();
         previousElement = ElementType.ELEMENT;
         xmlStreamWriter.writeEndDocument();
     }
@@ -220,7 +220,7 @@ public class IndentingXMLStreamWriter implements XMLStreamWriter {
         level += 1;
     }
 
-    private void decreaseLevenAndIndent() throws XMLStreamException {
+    private void decreaseLevelAndIndent() throws XMLStreamException {
         level -= 1;
         if (previousElement == ElementType.ELEMENT) {
             indent();

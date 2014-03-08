@@ -8,7 +8,6 @@ import java.util.List;
 public abstract class AbstractTableWriter implements StringTableWriter {
     protected final File file;
     protected List<String> columnNameList;
-
     protected String tableName;
 
     protected AbstractTableWriter(File file, String tableName) {
