@@ -11,12 +11,10 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 
 public abstract class AbstractLiquibaseTableWriter extends AbstractTableWriter {
-    private final File file;
     protected XMLStreamWriter writer;
 
     public AbstractLiquibaseTableWriter(File file, String tableName) {
-        super(tableName);
-        this.file = file;
+        super(file, tableName);
     }
 
     @Override

@@ -7,12 +7,10 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 public abstract class AbstractSqlTableWriter extends AbstractTableWriter {
-    private final File file;
     protected Writer writer;
 
     protected AbstractSqlTableWriter(File file, String tableName) {
-        super(tableName);
-        this.file = file;
+        super(file, tableName);
     }
 
     @Override
