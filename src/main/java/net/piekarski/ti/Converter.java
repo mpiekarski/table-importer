@@ -1,5 +1,6 @@
 package net.piekarski.ti;
 
+import com.google.inject.Inject;
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
 import net.piekarski.ti.io.reader.LazyTableReader;
 import net.piekarski.ti.io.writer.LazyTableWriter;
@@ -11,6 +12,7 @@ public class Converter {
     private final LazyTableReader reader;
     private final LazyTableWriter writer;
 
+    @Inject
     public Converter(LazyTableReader reader, LazyTableWriter writer) {
         this.reader = reader;
         this.writer = writer;

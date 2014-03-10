@@ -1,6 +1,5 @@
 package net.piekarski.ti.io.writer;
 
-import net.piekarski.ti.Main;
 import net.piekarski.ti.util.TableUtil;
 import org.joda.time.DateTime;
 
@@ -21,7 +20,7 @@ public class LiquibaseInsertWriter extends AbstractLiquibaseTableWriter {
         writer.writeStartElement("databaseChangeLog");
         writer.writeStartElement("changeSet");
         writer.writeAttribute("id", String.valueOf(DateTime.now().getMillis()));
-        writer.writeAttribute("author", Main.APPLICATION_NAME);
+        writer.writeAttribute("author", "table-importer");
     }
 
     @Override

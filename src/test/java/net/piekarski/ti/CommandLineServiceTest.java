@@ -46,7 +46,7 @@ public class CommandLineServiceTest {
         // when
         commandLineService.printHelp();
         // then
-        verify(helpFormatter).printHelp(Main.APPLICATION_NAME, commandLineService.options);
+        verify(helpFormatter).printHelp("table-importer", commandLineService.options);
     }
 
     @Test

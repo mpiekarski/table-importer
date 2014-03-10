@@ -1,7 +1,6 @@
 package net.piekarski.ti.io.writer;
 
 import com.google.common.collect.Lists;
-import net.piekarski.ti.Main;
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +48,7 @@ public class LiquibaseUpdateWriterTest {
         verify(writer).writeStartElement("databaseChangeLog");
         verify(writer).writeStartElement("changeSet");
         verify(writer).writeAttribute(eq("id"), anyString());
-        verify(writer).writeAttribute("author", Main.APPLICATION_NAME);
+        verify(writer).writeAttribute("author", "table-importer");
     }
 
     @Test

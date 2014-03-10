@@ -11,8 +11,6 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 public class Main {
-    public static final String APPLICATION_NAME = "table-importer";
-
     private CommandLineService cmd;
 
     @Inject

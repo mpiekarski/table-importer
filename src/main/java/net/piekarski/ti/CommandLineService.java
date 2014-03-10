@@ -52,7 +52,7 @@ public class CommandLineService {
     }
 
     public void printHelp() {
-        helpFormatter.printHelp(Main.APPLICATION_NAME, options);
+        helpFormatter.printHelp("table-importer", options);
     }
 
     public boolean hasHelpOption() {
