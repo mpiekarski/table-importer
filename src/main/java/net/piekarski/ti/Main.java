@@ -5,6 +5,8 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import net.piekarski.ti.exception.TableImporterException;
 import net.piekarski.ti.guice.MainModule;
+import net.piekarski.ti.io.reader.LazyTableReader;
+import net.piekarski.ti.io.writer.LazyTableWriter;
 import org.apache.commons.cli.ParseException;
 
 import javax.xml.stream.XMLStreamException;
@@ -36,12 +38,16 @@ public class Main {
             return;
         }
 
-        cmd.getConverter().run();
+        LazyTableReader reader = cmd.getTableReader();
+        LazyTableWriter writer = cmd.getTableWriter();
+
+        new Converter(reader, writer).run();
     }
 
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new MainModule());
         Main main = injector.getInstance(Main.class);
         main.start(args);
+        injector.createChildInjector();
     }
 }

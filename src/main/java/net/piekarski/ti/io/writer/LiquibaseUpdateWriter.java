@@ -1,6 +1,10 @@
 package net.piekarski.ti.io.writer;
 
+import com.google.inject.Inject;
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
+import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.PrimaryKey;
+import net.piekarski.ti.guice.annotation.TableName;
 import net.piekarski.ti.util.TableUtil;
 import org.joda.time.DateTime;
 
@@ -13,7 +17,9 @@ import java.util.Map;
 public class LiquibaseUpdateWriter extends AbstractLiquibaseTableWriter {
     protected String primaryKey;
 
-    public LiquibaseUpdateWriter(File file, String tableName, String primaryKey) throws IOException, XMLStreamException {
+    @Inject
+    public LiquibaseUpdateWriter(@InputFile File file, @TableName String tableName, @PrimaryKey String primaryKey)
+            throws IOException, XMLStreamException {
         super(file, tableName);
         this.primaryKey = primaryKey;
     }

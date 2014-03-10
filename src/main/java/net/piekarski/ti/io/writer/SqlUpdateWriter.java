@@ -1,7 +1,11 @@
 package net.piekarski.ti.io.writer;
 
 import com.google.common.base.Joiner;
+import com.google.inject.Inject;
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
+import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.PrimaryKey;
+import net.piekarski.ti.guice.annotation.TableName;
 import net.piekarski.ti.util.TableUtil;
 
 import java.io.File;
@@ -13,7 +17,8 @@ public class SqlUpdateWriter extends AbstractSqlTableWriter {
     private static final String SQL = "UPDATE %s SET %s WHERE %s;\n\n";
     protected String primaryKey;
 
-    public SqlUpdateWriter(File file, String tableName, String primaryKey) {
+    @Inject
+    public SqlUpdateWriter(@InputFile File file, @TableName String tableName, @PrimaryKey String primaryKey) {
         super(file, tableName);
         this.primaryKey = primaryKey;
     }
@@ -56,7 +61,7 @@ public class SqlUpdateWriter extends AbstractSqlTableWriter {
     }
 
     private String getSetStatement(List<String> cellList) {
-        Map<String,String> keyValueMap = TableUtil.getMapFromLists(columnNameList, cellList);
+        Map<String, String> keyValueMap = TableUtil.getMapFromLists(columnNameList, cellList);
         keyValueMap.remove(primaryKey);
         return Joiner
                 .on(",")

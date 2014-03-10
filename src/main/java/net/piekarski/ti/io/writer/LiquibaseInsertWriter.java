@@ -1,5 +1,8 @@
 package net.piekarski.ti.io.writer;
 
+import com.google.inject.Inject;
+import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.TableName;
 import net.piekarski.ti.util.TableUtil;
 import org.joda.time.DateTime;
 
@@ -10,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class LiquibaseInsertWriter extends AbstractLiquibaseTableWriter {
-    public LiquibaseInsertWriter(File file, String tableName) throws XMLStreamException, IOException {
+    @Inject
+    public LiquibaseInsertWriter(@InputFile File file, @TableName String tableName)
+            throws XMLStreamException,IOException {
         super(file, tableName);
     }
 

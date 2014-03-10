@@ -1,6 +1,9 @@
 package net.piekarski.ti.io.writer;
 
 import com.google.common.base.Joiner;
+import com.google.inject.Inject;
+import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.TableName;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +12,8 @@ import java.util.List;
 public class SqlInsertWriter extends AbstractSqlTableWriter {
     private static final String SQL = "INSERT INTO %s (%s) VALUES (%s);\n\n";
 
-    public SqlInsertWriter(File file, String tableName) throws IOException {
+    @Inject
+    public SqlInsertWriter(@InputFile File file, @TableName String tableName) throws IOException {
         super(file, tableName);
     }
 
