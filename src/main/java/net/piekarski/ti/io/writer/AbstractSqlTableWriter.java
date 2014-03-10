@@ -20,11 +20,15 @@ public abstract class AbstractSqlTableWriter extends AbstractTableWriter {
 
     @Override
     public void flush() throws IOException {
-        writer.flush();
+        if (writer != null) {
+            writer.flush();
+        }
     }
 
     @Override
     public void close() throws IOException {
-        writer.close();
+        if (writer != null) {
+            writer.close();
+        }
     }
 }

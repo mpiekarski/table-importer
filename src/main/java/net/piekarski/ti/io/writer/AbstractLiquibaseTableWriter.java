@@ -33,11 +33,15 @@ public abstract class AbstractLiquibaseTableWriter extends AbstractTableWriter {
 
     @Override
     public void flush() throws XMLStreamException {
-        writer.flush();
+        if (writer != null) {
+            writer.flush();
+        }
     }
 
     @Override
     public void close() throws XMLStreamException {
-        writer.close();
+        if (writer != null) {
+            writer.close();
+        }
     }
 }

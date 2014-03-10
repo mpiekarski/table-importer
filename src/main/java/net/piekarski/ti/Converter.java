@@ -17,13 +17,23 @@ public class Converter {
     }
 
     public void run() throws IOException, XMLStreamException, WrongPrimaryKeyException {
+        try {
+            tryToRun();
+        } catch (Exception e) {
+            writer.close();
+            reader.close();
+            throw e;
+        }
+    }
+
+    public void tryToRun() throws IOException, XMLStreamException, WrongPrimaryKeyException {
         reader.openFile();
+        writer.openFile();
 
         if (reader.hasNext()) {
             writer.setColumnNames(reader.next());
         }
 
-        writer.openFile();
         writer.writeHeader();
 
         while (reader.hasNext()) {
