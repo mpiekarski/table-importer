@@ -76,12 +76,17 @@ public class CommandLineService {
     }
 
     private Converter createConverter() throws IOException, FileFormatNotSupportedException, XMLStreamException {
-        File inputFile = new File(getOptionValue(INPUT));
-        File outputFile = new File(getOptionValue(OUTPUT));
-        LazyTableReader tableReader = getTableReader(inputFile);
-        LazyTableWriter lazyTableWriter = getTableWriter(outputFile);
+        return new Converter(getTableReader(), getTableWriter());
+    }
 
-        return new Converter(tableReader, lazyTableWriter);
+    public LazyTableReader getTableReader() throws IOException, FileFormatNotSupportedException, XMLStreamException {
+        File inputFile = new File(getOptionValue(INPUT));
+        return getTableReader(inputFile);
+    }
+
+    public LazyTableWriter getTableWriter() throws IOException, FileFormatNotSupportedException, XMLStreamException {
+        File outputFile = new File(getOptionValue(OUTPUT));
+        return getTableWriter(outputFile);
     }
 
     private LazyTableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {
@@ -94,12 +99,11 @@ public class CommandLineService {
     }
 
     private LazyTableReader getCsvReader(File file) throws FileNotFoundException {
-        CSVTableReader reader = new CSVTableReader(file);
+        String separator = ";";
         if (hasOption(SEPARATOR)) {
-            String separator = getOptionValue(SEPARATOR);
-            reader.setColumnSeparator(separator.charAt(0));
+            separator = getOptionValue(SEPARATOR);
         }
-        return reader;
+        return new CSVTableReader(file, separator);
     }
 
     private LazyTableReader getExcelReader(File file) {
