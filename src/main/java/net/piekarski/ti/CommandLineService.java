@@ -23,7 +23,6 @@ import org.apache.commons.cli.ParseException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static net.piekarski.ti.type.OptionType.HELP;
@@ -75,21 +74,21 @@ public class CommandLineService {
         return cmd.getOptionValue(opt.getOpt());
     }
 
-    private Converter createConverter() throws IOException, FileFormatNotSupportedException, XMLStreamException {
+    private Converter createConverter() throws FileFormatNotSupportedException {
         return new Converter(getTableReader(), getTableWriter());
     }
 
-    public LazyTableReader getTableReader() throws IOException, FileFormatNotSupportedException, XMLStreamException {
+    public LazyTableReader getTableReader() throws FileFormatNotSupportedException {
         File inputFile = new File(getOptionValue(INPUT));
         return getTableReader(inputFile);
     }
 
-    public LazyTableWriter getTableWriter() throws IOException, FileFormatNotSupportedException, XMLStreamException {
+    public LazyTableWriter getTableWriter() {
         File outputFile = new File(getOptionValue(OUTPUT));
         return getTableWriter(outputFile);
     }
 
-    private LazyTableReader getTableReader(File file) throws FileNotFoundException, FileFormatNotSupportedException {
+    private LazyTableReader getTableReader(File file) throws FileFormatNotSupportedException {
         if (file.getName().endsWith(".csv")) {
             return getCsvReader(file);
         } else if (file.getName().endsWith(".xls")) {
@@ -98,7 +97,7 @@ public class CommandLineService {
         throw new FileFormatNotSupportedException();
     }
 
-    private LazyTableReader getCsvReader(File file) throws FileNotFoundException {
+    private LazyTableReader getCsvReader(File file) {
         String separator = ";";
         if (hasOption(SEPARATOR)) {
             separator = getOptionValue(SEPARATOR);
@@ -110,27 +109,27 @@ public class CommandLineService {
         return new ExcelTableReader(file);
     }
 
-    private LazyTableWriter getTableWriter(File outputFile) throws IOException, XMLStreamException {
+    private LazyTableWriter getTableWriter(File outputFile) {
         return new StringTableWriterAdapter(getStringTableWriter(outputFile));
     }
 
-    private StringTableWriter getStringTableWriter(File file) throws IOException, XMLStreamException {
+    private StringTableWriter getStringTableWriter(File file) {
         return hasOption(LIQUIBASE) ?
                 getLiquibaseTableWriter(file) :
                 getSqlTableWriter(file);
     }
 
-    private StringTableWriter getLiquibaseTableWriter(File file) throws IOException, XMLStreamException {
+    private StringTableWriter getLiquibaseTableWriter(File file) {
         return hasOption(UPDATE) ?
                 new LiquibaseUpdateWriter(file, getOptionValue(TABLE), getOptionValue(UPDATE)) :
                 new LiquibaseInsertWriter(file, getOptionValue(TABLE));
     }
 
-    private StringTableWriter getSqlTableWriter(File file) throws IOException {
+    private StringTableWriter getSqlTableWriter(File file) {
         return new ReplaceCharsForSqlTableWriter(getNoQuotedCellsSqlWriter(file));
     }
 
-    private StringTableWriter getNoQuotedCellsSqlWriter(File file) throws IOException {
+    private StringTableWriter getNoQuotedCellsSqlWriter(File file) {
         return hasOption(UPDATE) ?
                 new SqlUpdateWriter(file, getOptionValue(TABLE), getOptionValue(UPDATE)) :
                 new SqlInsertWriter(file, getOptionValue(TABLE));

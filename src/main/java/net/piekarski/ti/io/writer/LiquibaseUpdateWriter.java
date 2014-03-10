@@ -10,7 +10,6 @@ import org.joda.time.DateTime;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +17,7 @@ public class LiquibaseUpdateWriter extends AbstractLiquibaseTableWriter {
     protected String primaryKey;
 
     @Inject
-    public LiquibaseUpdateWriter(@InputFile File file, @TableName String tableName, @PrimaryKey String primaryKey)
-            throws IOException, XMLStreamException {
+    public LiquibaseUpdateWriter(@InputFile File file, @TableName String tableName, @PrimaryKey String primaryKey) {
         super(file, tableName);
         this.primaryKey = primaryKey;
     }

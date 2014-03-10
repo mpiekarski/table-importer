@@ -13,7 +13,7 @@ public class SqlInsertWriter extends AbstractSqlTableWriter {
     private static final String SQL = "INSERT INTO %s (%s) VALUES (%s);\n\n";
 
     @Inject
-    public SqlInsertWriter(@InputFile File file, @TableName String tableName) throws IOException {
+    public SqlInsertWriter(@InputFile File file, @TableName String tableName) {
         super(file, tableName);
     }
 
