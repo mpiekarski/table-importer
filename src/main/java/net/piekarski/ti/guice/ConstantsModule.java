@@ -2,6 +2,7 @@ package net.piekarski.ti.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import net.piekarski.ti.guice.annotation.PrimaryKey;
 import net.piekarski.ti.guice.annotation.Separator;
 import net.piekarski.ti.guice.annotation.TableName;
@@ -21,6 +22,7 @@ public class ConstantsModule extends AbstractModule {
 
     @Provides
     @Separator
+    @Singleton
     String provideSeparator() {
         String separator = OptionType.SEPARATOR.getOpt();
         return cmd.hasOption(separator) ? cmd.getOptionValue(separator) : ";";
@@ -28,6 +30,7 @@ public class ConstantsModule extends AbstractModule {
 
     @Provides
     @PrimaryKey
+    @Singleton
     String providePrimaryKey() {
         String primaryKey = OptionType.UPDATE.getOpt();
         return cmd.getOptionValue(primaryKey);
@@ -35,6 +38,7 @@ public class ConstantsModule extends AbstractModule {
 
     @Provides
     @TableName
+    @Singleton
     String provideTableName() {
         String tableName = OptionType.TABLE.getOpt();
         return cmd.getOptionValue(tableName);

@@ -23,6 +23,7 @@ public class CommandLineModule extends AbstractModule {
     }
 
     @Provides
+    @Singleton
     Options provideOptions() {
         Options options = new Options();
         for (OptionType type : values()) {
