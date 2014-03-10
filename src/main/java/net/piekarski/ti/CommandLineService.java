@@ -3,6 +3,9 @@ package net.piekarski.ti;
 import com.google.inject.Inject;
 import net.piekarski.ti.exception.CommandLineNotParsedException;
 import net.piekarski.ti.exception.FileFormatNotSupportedException;
+import net.piekarski.ti.io.reader.CSVTableReader;
+import net.piekarski.ti.io.reader.ExcelTableReader;
+import net.piekarski.ti.io.reader.LazyTableReader;
 import net.piekarski.ti.io.writer.LazyTableWriter;
 import net.piekarski.ti.io.writer.LiquibaseInsertWriter;
 import net.piekarski.ti.io.writer.LiquibaseUpdateWriter;
@@ -11,9 +14,6 @@ import net.piekarski.ti.io.writer.SqlInsertWriter;
 import net.piekarski.ti.io.writer.SqlUpdateWriter;
 import net.piekarski.ti.io.writer.StringTableWriter;
 import net.piekarski.ti.io.writer.StringTableWriterAdapter;
-import net.piekarski.ti.io.reader.CSVTableReader;
-import net.piekarski.ti.io.reader.ExcelTableReader;
-import net.piekarski.ti.io.reader.LazyTableReader;
 import net.piekarski.ti.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -33,7 +33,6 @@ import static net.piekarski.ti.type.OptionType.OUTPUT;
 import static net.piekarski.ti.type.OptionType.SEPARATOR;
 import static net.piekarski.ti.type.OptionType.TABLE;
 import static net.piekarski.ti.type.OptionType.UPDATE;
-import static net.piekarski.ti.type.OptionType.values;
 
 public class CommandLineService {
     protected Options options;
@@ -42,8 +41,8 @@ public class CommandLineService {
     protected CommandLine cmd;
 
     @Inject
-    public CommandLineService(HelpFormatter helpFormatter, CommandLineParser parser) {
-        this.options = createOptions();
+    public CommandLineService(Options options, HelpFormatter helpFormatter, CommandLineParser parser) {
+        this.options = options;
         this.helpFormatter = helpFormatter;
         this.parser = parser;
     }
@@ -66,14 +65,6 @@ public class CommandLineService {
             throw new CommandLineNotParsedException();
         }
         return createConverter();
-    }
-
-    private Options createOptions() {
-        Options options = new Options();
-        for (OptionType type : values()) {
-            options.addOption(type.getOption());
-        }
-        return options;
     }
 
     private boolean hasOption(OptionType opt) {

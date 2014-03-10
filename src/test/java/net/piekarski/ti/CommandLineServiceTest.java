@@ -4,6 +4,7 @@ import net.piekarski.ti.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,9 @@ import static org.mockito.Mockito.verify;
 public class CommandLineServiceTest {
     @InjectMocks
     private CommandLineService commandLineService;
+
+    @Mock
+    private Options options;
 
     @Mock
     private HelpFormatter helpFormatter;
