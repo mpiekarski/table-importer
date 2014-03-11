@@ -6,13 +6,14 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.mock;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 
@@ -29,6 +30,14 @@ public class CommandLineServiceTest {
 
     @Mock
     private CommandLineParser parser;
+
+    @Mock
+    private CommandLine cmd;
+
+    @Before
+    public void setup() {
+        commandLineService.cmd = cmd;
+    }
 
     @Test
     public void shouldParse() throws ParseException {
@@ -50,13 +59,47 @@ public class CommandLineServiceTest {
     }
 
     @Test
-    public void shouldHasHelpOption() {
+    public void shouldCheckIfHasHelpOption() {
         // given
-        CommandLine cmd =  mock(CommandLine.class);
-        commandLineService.cmd = cmd;
         // when
         commandLineService.hasHelpOption();
         // then
         verify(cmd).hasOption(OptionType.HELP.getOpt());
+    }
+
+    @Test
+    public void shouldCheckIfHasOption() {
+        // given
+        // when
+        commandLineService.hasOption(OptionType.UPDATE);
+        // then
+        verify(cmd).hasOption(OptionType.UPDATE.getOpt());
+    }
+
+    @Test
+    public void shouldCheckIfHasOptionWithCommandlineNotParsed() {
+        // given
+        // when
+        boolean actual = commandLineService.hasOption(OptionType.UPDATE);
+        // then
+        assertThat(actual).isFalse();
+    }
+
+    @Test
+    public void shouldGetOptionValue() {
+        // given
+        // when
+        commandLineService.getOptionValue(OptionType.UPDATE);
+        // then
+        verify(cmd).getOptionValue(OptionType.UPDATE.getOpt());
+    }
+
+    @Test
+    public void shouldGetOptionValueWithCommandLineNotParsed() {
+        // given
+        // when
+        String actual = commandLineService.getOptionValue(OptionType.UPDATE);
+        // then
+        assertThat(actual).isNull();
     }
 }

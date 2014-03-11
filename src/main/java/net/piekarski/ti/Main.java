@@ -25,8 +25,6 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.List;
 
-import static net.piekarski.ti.type.OptionType.INPUT;
-
 public class Main {
     private CommandLineService cmd;
 
@@ -68,7 +66,7 @@ public class Main {
     }
 
     private Module getReaderModule() throws FileFormatNotSupportedException {
-        String fileName = cmd.getOptionValue(INPUT);
+        String fileName = cmd.getOptionValue(OptionType.INPUT);
 
         if (fileName.endsWith(".csv")) {
             return new CSVReaderModule();
