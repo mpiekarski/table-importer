@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class ReplaceCharsForSqlTableWriter implements StringTableWriter {
+public class ReplaceBadSqlCharsWriter implements StringTableWriter {
     StringTableWriter writer;
 
-    public ReplaceCharsForSqlTableWriter(StringTableWriter writer) {
+    public ReplaceBadSqlCharsWriter(StringTableWriter writer) {
         this.writer = writer;
     }
 

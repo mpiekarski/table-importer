@@ -22,14 +22,14 @@ public class ReplaceCharsForSqlTableWriterTest {
     private StringTableWriter stringTableWriter;
 
     @InjectMocks
-    private ReplaceCharsForSqlTableWriter replaceCharsForSqlTableWriter = new ReplaceCharsForSqlTableWriter(stringTableWriter);
+    private ReplaceBadSqlCharsWriter replaceBadSqlCharsWriter = new ReplaceBadSqlCharsWriter(stringTableWriter);
 
     @Test
     public void shouldSetColumnNameList() throws WrongPrimaryKeyException {
         // given
         List<String> cellList = Lists.newArrayList("1", "John");
         // when
-        replaceCharsForSqlTableWriter.setColumnNameList(cellList);
+        replaceBadSqlCharsWriter.setColumnNameList(cellList);
         // then
         verify(stringTableWriter).setColumnNameList(cellList);
     }
@@ -38,7 +38,7 @@ public class ReplaceCharsForSqlTableWriterTest {
     public void shouldWriteHeader() throws IOException, XMLStreamException {
         // given
         // when
-        replaceCharsForSqlTableWriter.writeHeader();
+        replaceBadSqlCharsWriter.writeHeader();
         // then
         verify(stringTableWriter).writeHeader();
     }
@@ -48,7 +48,7 @@ public class ReplaceCharsForSqlTableWriterTest {
         // given
         List<String> cellList = Lists.newArrayList("'\"$&");
         // when
-        replaceCharsForSqlTableWriter.write(cellList);
+        replaceBadSqlCharsWriter.write(cellList);
         // then
         verify(stringTableWriter).write(Lists.newArrayList("''chr(039)''chr(034)''chr(036)''chr(038)''"));
     }
@@ -58,7 +58,7 @@ public class ReplaceCharsForSqlTableWriterTest {
         // given
         List<String> cellList = Lists.newArrayList("1");
         // when
-        replaceCharsForSqlTableWriter.write(cellList);
+        replaceBadSqlCharsWriter.write(cellList);
         // then
         verify(stringTableWriter).write(Lists.newArrayList("1"));
     }
@@ -67,7 +67,7 @@ public class ReplaceCharsForSqlTableWriterTest {
     public void shouldWriteFooter() throws IOException, XMLStreamException {
         // given
         // when
-        replaceCharsForSqlTableWriter.writeFooter();
+        replaceBadSqlCharsWriter.writeFooter();
         // then
         verify(stringTableWriter).writeFooter();
     }
@@ -76,7 +76,7 @@ public class ReplaceCharsForSqlTableWriterTest {
     public void shouldFlush() throws IOException, XMLStreamException {
         // given
         // when
-        replaceCharsForSqlTableWriter.flush();
+        replaceBadSqlCharsWriter.flush();
         // then
         verify(stringTableWriter).flush();
     }
@@ -85,7 +85,7 @@ public class ReplaceCharsForSqlTableWriterTest {
     public void shouldClose() throws IOException, XMLStreamException {
         // given
         // when
-        replaceCharsForSqlTableWriter.close();
+        replaceBadSqlCharsWriter.close();
         // then
         verify(stringTableWriter).close();
     }
@@ -94,7 +94,7 @@ public class ReplaceCharsForSqlTableWriterTest {
     public void shouldOpenFile() throws FileNotFoundException, UnsupportedEncodingException, XMLStreamException {
         // given
         // when
-        replaceCharsForSqlTableWriter.openFile();
+        replaceBadSqlCharsWriter.openFile();
         // then
         verify(stringTableWriter).openFile();
     }

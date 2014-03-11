@@ -3,7 +3,7 @@ package net.piekarski.ti.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import net.piekarski.ti.io.writer.ReplaceCharsForSqlTableWriter;
+import net.piekarski.ti.io.writer.ReplaceBadSqlCharsWriter;
 import net.piekarski.ti.io.writer.SqlUpdateWriter;
 import net.piekarski.ti.io.writer.StringTableWriter;
 
@@ -16,6 +16,6 @@ public class SqlUpdateWriterModule extends AbstractModule {
     @Provides
     @Singleton
     StringTableWriter provideLazyTableWriter(SqlUpdateWriter writer) {
-        return new ReplaceCharsForSqlTableWriter(writer);
+        return new ReplaceBadSqlCharsWriter(writer);
     }
 }

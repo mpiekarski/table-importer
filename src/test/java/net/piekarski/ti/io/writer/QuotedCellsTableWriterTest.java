@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class QuotedCellsTableWriterTest {
     @InjectMocks
-    private ReplaceCharsForSqlTableWriter quotedCellsTableWriter;
+    private ReplaceBadSqlCharsWriter quotedCellsTableWriter;
 
     @Mock
     private StringTableWriter stringTableWriter;
