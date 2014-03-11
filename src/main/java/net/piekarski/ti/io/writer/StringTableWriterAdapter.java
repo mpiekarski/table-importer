@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
-public class StringTableWriterAdapter implements LazyTableWriter {
+public class StringTableWriterAdapter implements ObjectTableWriter {
     StringTableWriter writer;
 
     public StringTableWriterAdapter(StringTableWriter writer) {

@@ -1,9 +1,8 @@
 package net.piekarski.ti;
 
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
-import net.piekarski.ti.io.writer.LazyTableWriter;
+import net.piekarski.ti.io.writer.ObjectTableWriter;
 import net.piekarski.ti.io.reader.LazyTableReader;
-import net.piekarski.ti.Converter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,7 +26,7 @@ public class ConverterTest {
     private LazyTableReader reader;
 
     @Mock
-    private LazyTableWriter writer;
+    private ObjectTableWriter writer;
 
     @Test
     public void shouldRun() throws IOException, XMLStreamException, WrongPrimaryKeyException {

@@ -13,7 +13,7 @@ import net.piekarski.ti.guice.ConstantsModule;
 import net.piekarski.ti.guice.ConverterModule;
 import net.piekarski.ti.guice.ExcelReaderModule;
 import net.piekarski.ti.guice.FileModule;
-import net.piekarski.ti.guice.LazyTableWriterModule;
+import net.piekarski.ti.guice.ObjectTableWriterModule;
 import net.piekarski.ti.guice.LiquibaseInsertWriterModule;
 import net.piekarski.ti.guice.LiquibaseUpdateWriterModule;
 import net.piekarski.ti.guice.SqlInsertWriterModule;
@@ -59,7 +59,7 @@ public class Main {
                 .add(new ConverterModule())
                 .add(new ConstantsModule(cmd))
                 .add(new FileModule(cmd))
-                .add(new LazyTableWriterModule())
+                .add(new ObjectTableWriterModule())
                 .add(getReaderModule())
                 .add(getWriterModule())
                 .build();

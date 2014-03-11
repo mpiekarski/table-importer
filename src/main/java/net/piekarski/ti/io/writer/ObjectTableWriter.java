@@ -6,7 +6,7 @@ import net.piekarski.ti.io.LazyFile;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
-public interface LazyTableWriter extends LazyFile {
+public interface ObjectTableWriter extends LazyFile {
     void setColumnNames(Object[] columnNames) throws WrongPrimaryKeyException;
 
     void writeHeader() throws IOException, XMLStreamException;

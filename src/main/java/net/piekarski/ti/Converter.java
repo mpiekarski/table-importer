@@ -3,17 +3,17 @@ package net.piekarski.ti;
 import com.google.inject.Inject;
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
 import net.piekarski.ti.io.reader.LazyTableReader;
-import net.piekarski.ti.io.writer.LazyTableWriter;
+import net.piekarski.ti.io.writer.ObjectTableWriter;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 public class Converter {
     private final LazyTableReader reader;
-    private final LazyTableWriter writer;
+    private final ObjectTableWriter writer;
 
     @Inject
-    public Converter(LazyTableReader reader, LazyTableWriter writer) {
+    public Converter(LazyTableReader reader, ObjectTableWriter writer) {
         this.reader = reader;
         this.writer = writer;
     }
