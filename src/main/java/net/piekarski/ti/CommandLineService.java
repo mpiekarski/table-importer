@@ -1,7 +1,6 @@
 package net.piekarski.ti;
 
 import com.google.inject.Inject;
-import net.piekarski.ti.exception.CommandLineNotParsedException;
 import net.piekarski.ti.type.OptionType;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -30,23 +29,20 @@ public class CommandLineService {
         helpFormatter.printHelp("table-importer", options);
     }
 
-    public boolean hasHelpOption() throws CommandLineNotParsedException {
-        if (cmd == null) {
-            throw new CommandLineNotParsedException();
-        }
+    public boolean hasHelpOption() {
         return hasOption(OptionType.HELP);
     }
 
-    public boolean hasOption(OptionType opt) throws CommandLineNotParsedException {
+    public boolean hasOption(OptionType opt) {
         if (cmd == null) {
-            throw new CommandLineNotParsedException();
+            return false;
         }
         return cmd.hasOption(opt.getOpt());
     }
 
-    public String getOptionValue(OptionType opt) throws CommandLineNotParsedException {
+    public String getOptionValue(OptionType opt) {
         if (cmd == null) {
-            throw new CommandLineNotParsedException();
+            return null;
         }
         return cmd.getOptionValue(opt.getOpt());
     }

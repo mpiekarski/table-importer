@@ -5,7 +5,6 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import net.piekarski.ti.exception.CommandLineNotParsedException;
 import net.piekarski.ti.exception.FileFormatNotSupportedException;
 import net.piekarski.ti.exception.TableImporterException;
 import net.piekarski.ti.guice.CSVReaderModule;
@@ -57,7 +56,7 @@ public class Main {
         injector.getInstance(Converter.class).run();
     }
 
-    private List<Module> getModules() throws FileFormatNotSupportedException, CommandLineNotParsedException {
+    private List<Module> getModules() throws FileFormatNotSupportedException {
         return ImmutableList.<Module>builder()
                 .add(new ConverterModule())
                 .add(new ConstantsModule(cmd))
@@ -68,7 +67,7 @@ public class Main {
                 .build();
     }
 
-    private Module getReaderModule() throws FileFormatNotSupportedException, CommandLineNotParsedException {
+    private Module getReaderModule() throws FileFormatNotSupportedException {
         String fileName = cmd.getOptionValue(INPUT);
 
         if (fileName.endsWith(".csv")) {
@@ -80,7 +79,7 @@ public class Main {
         throw new FileFormatNotSupportedException();
     }
 
-    private Module getWriterModule() throws CommandLineNotParsedException {
+    private Module getWriterModule() {
         return cmd.hasOption(OptionType.LIQUIBASE) ?
                 cmd.hasOption(OptionType.UPDATE) ? new LiquibaseUpdateWriterModule() : new LiquibaseInsertWriterModule() :
                 cmd.hasOption(OptionType.UPDATE) ? new SqlUpdateWriterModule() : new SqlInsertWriterModule();
