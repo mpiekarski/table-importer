@@ -5,6 +5,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import net.piekarski.ti.exception.CommandLineNotParsedException;
 import net.piekarski.ti.exception.FileFormatNotSupportedException;
 import net.piekarski.ti.exception.TableImporterException;
 import net.piekarski.ti.guice.CSVReaderModule;
@@ -44,8 +45,7 @@ public class Main {
         }
     }
 
-    private void tryToRun(String[] args) throws ParseException, IOException, XMLStreamException,
-            TableImporterException {
+    private void tryToRun(String[] args) throws ParseException, TableImporterException, XMLStreamException,IOException {
         cmd.parse(args);
 
         if (cmd.hasHelpOption()) {
@@ -57,7 +57,7 @@ public class Main {
         injector.getInstance(Converter.class).run();
     }
 
-    private List<Module> getModules() throws FileFormatNotSupportedException {
+    private List<Module> getModules() throws FileFormatNotSupportedException, CommandLineNotParsedException {
         return ImmutableList.<Module>builder()
                 .add(new ConverterModule())
                 .add(new ConstantsModule(cmd))
@@ -68,7 +68,7 @@ public class Main {
                 .build();
     }
 
-    private Module getReaderModule() throws FileFormatNotSupportedException {
+    private Module getReaderModule() throws FileFormatNotSupportedException, CommandLineNotParsedException {
         String fileName = cmd.getOptionValue(INPUT);
 
         if (fileName.endsWith(".csv")) {
@@ -80,7 +80,7 @@ public class Main {
         throw new FileFormatNotSupportedException();
     }
 
-    private Module getWriterModule() {
+    private Module getWriterModule() throws CommandLineNotParsedException {
         return cmd.hasOption(OptionType.LIQUIBASE) ?
                 cmd.hasOption(OptionType.UPDATE) ? new LiquibaseUpdateWriterModule() : new LiquibaseInsertWriterModule() :
                 cmd.hasOption(OptionType.UPDATE) ? new SqlUpdateWriterModule() : new SqlInsertWriterModule();
