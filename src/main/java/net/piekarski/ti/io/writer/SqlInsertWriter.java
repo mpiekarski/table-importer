@@ -2,7 +2,7 @@ package net.piekarski.ti.io.writer;
 
 import com.google.common.base.Joiner;
 import com.google.inject.Inject;
-import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.OutputFile;
 import net.piekarski.ti.guice.annotation.TableName;
 
 import java.io.File;
@@ -13,7 +13,7 @@ public class SqlInsertWriter extends AbstractSqlTableWriter {
     private static final String SQL = "INSERT INTO %s (%s) VALUES (%s);\n\n";
 
     @Inject
-    public SqlInsertWriter(@InputFile File file, @TableName String tableName) {
+    public SqlInsertWriter(@OutputFile File file, @TableName String tableName) {
         super(file, tableName);
     }
 

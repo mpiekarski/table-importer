@@ -1,18 +1,31 @@
 package net.piekarski.ti;
 
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import net.piekarski.ti.exception.FileFormatNotSupportedException;
 import net.piekarski.ti.exception.TableImporterException;
-import net.piekarski.ti.guice.MainModule;
-import net.piekarski.ti.io.reader.LazyTableReader;
-import net.piekarski.ti.io.writer.LazyTableWriter;
+import net.piekarski.ti.guice.CSVReaderModule;
+import net.piekarski.ti.guice.CommandLineModule;
+import net.piekarski.ti.guice.ConstantsModule;
+import net.piekarski.ti.guice.ConverterModule;
+import net.piekarski.ti.guice.ExcelReaderModule;
+import net.piekarski.ti.guice.FileModule;
+import net.piekarski.ti.guice.LazyTableWriterModule;
+import net.piekarski.ti.guice.LiquibaseInsertWriterModule;
+import net.piekarski.ti.guice.LiquibaseUpdateWriterModule;
+import net.piekarski.ti.guice.SqlInsertWriterModule;
+import net.piekarski.ti.guice.SqlUpdateWriterModule;
+import net.piekarski.ti.type.OptionType;
 import org.apache.commons.cli.ParseException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
-import java.util.Set;
+import java.util.List;
+
+import static net.piekarski.ti.type.OptionType.INPUT;
 
 public class Main {
     private CommandLineService cmd;
@@ -22,38 +35,59 @@ public class Main {
         this.cmd = cmd;
     }
 
-    protected Set<Module> start(String[] args) {
+    protected void run(String[] args) {
         try {
-            return tryToStart(args);
+            tryToRun(args);
         } catch (Exception e) {
             System.out.println(e.getMessage() == null ? e.toString() : e.getMessage());
             cmd.printHelp();
-            return null;
         }
     }
 
-    private Set<Module> tryToStart(String[] args) throws ParseException, IOException, XMLStreamException,
+    private void tryToRun(String[] args) throws ParseException, IOException, XMLStreamException,
             TableImporterException {
         cmd.parse(args);
 
         if (cmd.hasHelpOption()) {
             cmd.printHelp();
-            return null;
+            return;
         }
 
-        LazyTableReader reader = cmd.getTableReader();
-        LazyTableWriter writer = cmd.getTableWriter();
+        Injector injector = Guice.createInjector(getModules());
+        injector.getInstance(Converter.class).run();
+    }
 
-        new Converter(reader, writer).run();
+    private List<Module> getModules() throws FileFormatNotSupportedException {
+        return ImmutableList.<Module>builder()
+                .add(new ConverterModule())
+                .add(new ConstantsModule(cmd))
+                .add(new FileModule(cmd))
+                .add(new LazyTableWriterModule())
+                .add(getReaderModule())
+                .add(getWriterModule())
+                .build();
+    }
 
-        return null;
+    private Module getReaderModule() throws FileFormatNotSupportedException {
+        String fileName = cmd.getOptionValue(INPUT);
+
+        if (fileName.endsWith(".csv")) {
+            return new CSVReaderModule();
+        } else if (fileName.endsWith(".xls")) {
+            return new ExcelReaderModule();
+        }
+
+        throw new FileFormatNotSupportedException();
+    }
+
+    private Module getWriterModule() {
+        return cmd.hasOption(OptionType.LIQUIBASE) ?
+                cmd.hasOption(OptionType.UPDATE) ? new LiquibaseUpdateWriterModule() : new LiquibaseInsertWriterModule() :
+                cmd.hasOption(OptionType.UPDATE) ? new SqlUpdateWriterModule() : new SqlInsertWriterModule();
     }
 
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(new MainModule());
-        Main main = injector.getInstance(Main.class);
-        Set<Module> modules = main.start(args);
-        injector.createChildInjector(modules);
-        injector.getInstance(Converter.class);
+        Injector injector = Guice.createInjector(new CommandLineModule());
+        injector.getInstance(Main.class).run(args);
     }
 }

@@ -1,7 +1,7 @@
 package net.piekarski.ti.io.writer;
 
 import com.google.inject.Inject;
-import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.OutputFile;
 import net.piekarski.ti.guice.annotation.TableName;
 import net.piekarski.ti.util.TableUtil;
 import org.joda.time.DateTime;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class LiquibaseInsertWriter extends AbstractLiquibaseTableWriter {
     @Inject
-    public LiquibaseInsertWriter(@InputFile File file, @TableName String tableName) {
+    public LiquibaseInsertWriter(@OutputFile File file, @TableName String tableName) {
         super(file, tableName);
     }
 

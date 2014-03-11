@@ -2,7 +2,7 @@ package net.piekarski.ti.io.writer;
 
 import com.google.inject.Inject;
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
-import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.OutputFile;
 import net.piekarski.ti.guice.annotation.PrimaryKey;
 import net.piekarski.ti.guice.annotation.TableName;
 import net.piekarski.ti.util.TableUtil;
@@ -17,7 +17,7 @@ public class LiquibaseUpdateWriter extends AbstractLiquibaseTableWriter {
     protected String primaryKey;
 
     @Inject
-    public LiquibaseUpdateWriter(@InputFile File file, @TableName String tableName, @PrimaryKey String primaryKey) {
+    public LiquibaseUpdateWriter(@OutputFile File file, @TableName String tableName, @PrimaryKey String primaryKey) {
         super(file, tableName);
         this.primaryKey = primaryKey;
     }

@@ -12,9 +12,7 @@ public class CSVTableReader extends AbstractTableReader<CSVReader> {
     private final String separator;
 
     @Inject
-    @InputFile
-    @Separator
-    public CSVTableReader(File file, String separator) {
+    public CSVTableReader(@InputFile File file, @Separator String separator) {
         super(file);
         this.separator = separator;
     }

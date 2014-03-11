@@ -9,8 +9,7 @@ import java.io.FileNotFoundException;
 
 public class ExcelTableReader extends AbstractTableReader<ExcelReader> {
     @Inject
-    @InputFile
-    public ExcelTableReader(File file) {
+    public ExcelTableReader(@InputFile File file) {
         super(file);
     }
 

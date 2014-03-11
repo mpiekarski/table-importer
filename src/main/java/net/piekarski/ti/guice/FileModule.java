@@ -3,17 +3,17 @@ package net.piekarski.ti.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import net.piekarski.ti.CommandLineService;
 import net.piekarski.ti.guice.annotation.InputFile;
 import net.piekarski.ti.guice.annotation.OutputFile;
 import net.piekarski.ti.type.OptionType;
-import org.apache.commons.cli.CommandLine;
 
 import java.io.File;
 
 public class FileModule extends AbstractModule {
-    private final CommandLine cmd;
+    private final CommandLineService cmd;
 
-    public FileModule(CommandLine cmd) {
+    public FileModule(CommandLineService cmd) {
         this.cmd = cmd;
     }
 
@@ -25,8 +25,7 @@ public class FileModule extends AbstractModule {
     @InputFile
     @Singleton
     File provideInputFile() {
-        String opt = OptionType.INPUT.getOpt();
-        String fileName = cmd.getOptionValue(opt);
+        String fileName = cmd.getOptionValue(OptionType.INPUT);
         return new File(fileName);
     }
 
@@ -34,8 +33,7 @@ public class FileModule extends AbstractModule {
     @OutputFile
     @Singleton
     File provideOutputFile() {
-        String opt = OptionType.INPUT.getOpt();
-        String fileName = cmd.getOptionValue(opt);
+        String fileName = cmd.getOptionValue(OptionType.OUTPUT);
         return new File(fileName);
     }
 }

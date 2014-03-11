@@ -3,7 +3,7 @@ package net.piekarski.ti.io.writer;
 import com.google.common.base.Joiner;
 import com.google.inject.Inject;
 import net.piekarski.ti.exception.WrongPrimaryKeyException;
-import net.piekarski.ti.guice.annotation.InputFile;
+import net.piekarski.ti.guice.annotation.OutputFile;
 import net.piekarski.ti.guice.annotation.PrimaryKey;
 import net.piekarski.ti.guice.annotation.TableName;
 import net.piekarski.ti.util.TableUtil;
@@ -18,7 +18,7 @@ public class SqlUpdateWriter extends AbstractSqlTableWriter {
     protected String primaryKey;
 
     @Inject
-    public SqlUpdateWriter(@InputFile File file, @TableName String tableName, @PrimaryKey String primaryKey) {
+    public SqlUpdateWriter(@OutputFile File file, @TableName String tableName, @PrimaryKey String primaryKey) {
         super(file, tableName);
         this.primaryKey = primaryKey;
     }

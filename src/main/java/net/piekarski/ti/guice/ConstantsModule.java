@@ -3,16 +3,16 @@ package net.piekarski.ti.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import net.piekarski.ti.CommandLineService;
 import net.piekarski.ti.guice.annotation.PrimaryKey;
 import net.piekarski.ti.guice.annotation.Separator;
 import net.piekarski.ti.guice.annotation.TableName;
 import net.piekarski.ti.type.OptionType;
-import org.apache.commons.cli.CommandLine;
 
 public class ConstantsModule extends AbstractModule {
-    private final CommandLine cmd;
+    private final CommandLineService cmd;
 
-    public ConstantsModule(CommandLine cmd) {
+    public ConstantsModule(CommandLineService cmd) {
         this.cmd = cmd;
     }
 
@@ -24,23 +24,20 @@ public class ConstantsModule extends AbstractModule {
     @Separator
     @Singleton
     String provideSeparator() {
-        String separator = OptionType.SEPARATOR.getOpt();
-        return cmd.hasOption(separator) ? cmd.getOptionValue(separator) : ";";
+        return cmd.hasOption(OptionType.SEPARATOR) ? cmd.getOptionValue(OptionType.SEPARATOR) : ";";
     }
 
     @Provides
     @PrimaryKey
     @Singleton
     String providePrimaryKey() {
-        String primaryKey = OptionType.UPDATE.getOpt();
-        return cmd.getOptionValue(primaryKey);
+        return cmd.getOptionValue(OptionType.UPDATE);
     }
 
     @Provides
     @TableName
     @Singleton
     String provideTableName() {
-        String tableName = OptionType.TABLE.getOpt();
-        return cmd.getOptionValue(tableName);
+        return cmd.getOptionValue(OptionType.TABLE);
     }
 }
