@@ -2,21 +2,18 @@
 <databaseChangeLog>
     <changeSet id="0" author="table-importer">
         <update tableName="PERSON">
-            <column name="ID" value="1"/>
             <column name="NAME" value="John"/>
             <column name="AGE" value="13"/>
             <column name="TEXT" value="one line text"/>
             <where>ID=1</where>
         </update>
         <update tableName="PERSON">
-            <column name="ID" value="2"/>
             <column name="NAME" value=""/>
             <column name="AGE" value="23"/>
             <column name="TEXT" value=""/>
             <where>ID=2</where>
         </update>
         <update tableName="PERSON">
-            <column name="ID" value="3"/>
             <column name="NAME" value="Jane"/>
             <column name="AGE" value="28"/>
             <column name="TEXT" value="Hello!
@@ -29,7 +26,6 @@
             <where>ID=3</where>
         </update>
         <update tableName="PERSON">
-            <column name="ID" value="4"/>
             <column name="NAME" value="Jack"/>
             <column name="AGE" value="44"/>
             <column name="TEXT" value="&#36;{url} = http://host:80/test?x=1&#38;y=&#34;&#34;"/>

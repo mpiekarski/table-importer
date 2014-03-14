@@ -61,10 +61,7 @@ public class LiquibaseUpdateWriterTest {
         verify(writer).writeStartElement("update");
         verify(writer).writeAttribute("tableName", "tableName");
 
-        verify(writer, times(2)).writeEmptyElement("column");
-
-        verify(writer).writeAttribute("name", "ID");
-        verify(writer).writeAttribute("value", "1");
+        verify(writer).writeEmptyElement("column");
 
         verify(writer).writeAttribute("name", "NAME");
         verify(writer).writeAttribute("value", "John");

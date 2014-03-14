@@ -34,6 +34,7 @@ public class LiquibaseUpdateWriter extends AbstractLiquibaseTableWriter {
     @Override
     public void write(List<String> cellList) throws XMLStreamException {
         Map<String, String> columnMap = TableUtil.getMapFromLists(columnNameList, cellList);
+        columnMap.remove(primaryKey);
 
         writer.writeStartElement("update");
         writer.writeAttribute("tableName", tableName);
