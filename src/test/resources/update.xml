@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version='1.0' encoding='UTF-8'?>
 <databaseChangeLog>
     <changeSet id="0" author="table-importer">
         <update tableName="PERSON">
@@ -20,19 +20,19 @@
             <column name="NAME" value="Jane"/>
             <column name="AGE" value="28"/>
             <column name="TEXT" value="Hello!
-
-This is not a very
-long message.
-
-    Regards,
-    Jane"/>
+&#10;
+&#10;This is not a very
+&#10;long message.
+&#10;
+&#10;    Regards,
+&#10;    Jane"/>
             <where>ID=3</where>
         </update>
         <update tableName="PERSON">
             <column name="ID" value="4"/>
             <column name="NAME" value="Jack"/>
             <column name="AGE" value="44"/>
-            <column name="TEXT" value="${url} = http://host:80/test?x=1&amp;y=&quot;&quot;"/>
+            <column name="TEXT" value="&#36;{url} = http://host:80/test?x=1&#38;y=&#34;&#34;"/>
             <where>ID=4</where>
         </update>
     </changeSet>

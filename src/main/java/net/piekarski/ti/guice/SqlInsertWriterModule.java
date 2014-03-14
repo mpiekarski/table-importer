@@ -15,7 +15,7 @@ public class SqlInsertWriterModule extends AbstractModule {
 
     @Provides
     @Singleton
-    StringTableWriter provideLazyTableWriter(SqlInsertWriter writer) {
+    StringTableWriter provideStringTableWriter(SqlInsertWriter writer) {
         return new ReplaceBadSqlCharsWriter(writer);
     }
 }
